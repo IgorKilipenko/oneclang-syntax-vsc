@@ -1,5 +1,4 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
     "name": "1C:Community (BSL)",
     "scopeName": "source.bsl",
     "patterns": [
@@ -11,15 +10,18 @@
         },
         {
             "comment": "Proc and function definition",
-            "begin": "(?i:(?<=[^\\wа-яё\\.]|^)(Процедура|Procedure|Функция|Function)\\s+([a-zа-яё0-9_]+)\\s*(\\())",
+            "begin": "(?i:(?<=[^\\wа-яё\\.]|^)\\s*\\b(Асинх|Async)?\\s+(Процедура|Procedure|Функция|Function)\\s+([a-zа-яё0-9_]+)\\s*(\\())",
             "beginCaptures": {
                 "1": {
-                    "name": "storage.type.bsl"
+                    "name": "storage.modifier.async.bsl"
                 },
                 "2": {
-                    "name": "entity.name.function.bsl"
+                    "name": "storage.type.bsl"
                 },
                 "3": {
+                    "name": "entity.name.function.bsl"
+                },
+                "4": {
                     "name": "punctuation.bracket.begin.bsl"
                 }
             },
@@ -539,7 +541,7 @@
                             "name": "punctuation.accessor.bsl"
                         },
                         "2": {
-                            "name": "variable.other.property.bsl, variable.other.unknown.property.bsl"
+                            "name": "variable.other.property.bsl"
                         }
                     }
                 },
@@ -550,7 +552,7 @@
                             "name": "punctuation.accessor.bsl"
                         },
                         "2": {
-                            "name": "variable.other.property.bsl, variable.other.unknown.property.bsl"
+                            "name": "variable.other.property.bsl"
                         }
                     }
                 }

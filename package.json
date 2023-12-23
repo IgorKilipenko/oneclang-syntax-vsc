@@ -4,7 +4,7 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -46,7 +46,70 @@
         "scopeName": "source.sdbl",
         "path": "./syntaxes/sdbl.tmLanguage"
       }
-    ]
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "bsl",
+        "scopes": {
+          "property": [
+            "variable.other.property.bsl"
+          ],
+          "property.readonly": [
+            "variable.other.constant.property.bsl"
+          ],
+          "variable": [
+            "variable.other.readwrite.bsl"
+          ],
+          "variable.readonly": [
+            "variable.other.constant.object.bsl"
+          ],
+          "function": [
+            "entity.name.function.bsl"
+          ],
+          "namespace": [
+            "entity.name.type.module.bsl"
+          ],
+          "variable.defaultLibrary": [
+            "support.variable.bsl"
+          ],
+          "function.defaultLibrary": [
+            "support.function.bsl"
+          ]
+        }
+      }
+    ],
+    "configurationDefaults": {
+      "editor.tokenColorCustomizations": {
+        "[*Dark*]": {
+          "textMateRules": [
+            {
+              "scope": "variable.other.property.bsl",
+              "settings": {
+                "foreground": "#4FC1FF"
+              }
+            }
+          ]
+        },
+        "[*Light*]": {
+          "textMateRules": [
+            {
+              "scope": "variable.other.property.bsl",
+              "settings": {
+                "foreground": "#120052"
+              }
+            }
+          ]
+        },
+        "textMateRules": [
+          {
+            "scope": "support.function.bsl",
+            "settings": {
+              "fontStyle": "bold"
+            }
+          }
+        ]
+      }
+    }
   },
   "repository": {
     "type": "git",
