@@ -2,7 +2,7 @@
 
 |Пример подсветки|
 |---|
-|![Preview image](<images/syntaxes_example.png>)|
+|![Preview image](./images/syntaxes_example.png)|
 
 ---
 
