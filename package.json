@@ -1,7 +1,7 @@
 {
   "name": "oneclang-syntax-vsc",
-  "displayName": "oneclang-syntax-vsc",
-  "description": "",
+  "displayName": "%displayName%",
+  "description": "%description%",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.85.0"
@@ -10,16 +10,44 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "bsl",
-      "aliases": ["1C", "bsl"],
-      "extensions": ["bsl"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "bsl",
-      "scopeName": "source.bsl",
-      "path": "./syntaxes/bsl.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "bsl",
+        "extensions": [
+          ".bsl"
+        ],
+        "aliases": [
+          "1C:Community",
+          "BSL"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "sdbl",
+        "extensions": [
+          ".sdbl"
+        ],
+        "aliases": [
+          "1C:Community.Query",
+          "SDBL"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "bsl",
+        "scopeName": "source.bsl",
+        "path": "./syntaxes/bsl.tmLanguage.json"
+      },
+      {
+        "language": "sdbl",
+        "scopeName": "source.sdbl",
+        "path": "./syntaxes/sdbl.tmLanguage"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IgorKilipenko/oneclang-syntax-vsc"
   }
 }
