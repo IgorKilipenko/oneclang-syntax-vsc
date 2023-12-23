@@ -1,3 +1,9 @@
-# oneclang-syntax-vsc README
+# Подсветка синтаксиса языка 1С:Предприятие (BSL) для vscode
 
-Расширение (на основе репозитория - [vsc-language-1c-bsl](https://github.com/1c-syntax/vsc-language-1c-bsl)) vs code для языка 1С:Предприятие
+|Пример подсветки|
+|---|
+|![Preview image](<images/syntaxes_example.png>)|
+
+---
+
+> Расширение реализовано на базе репозитория: [ [1c-syntax/1c-syntax](https://github.com/1c-syntax/1c-syntax) ]
