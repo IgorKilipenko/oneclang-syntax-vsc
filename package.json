@@ -1,0 +1,25 @@
+{
+  "name": "oneclang-syntax-vsc",
+  "displayName": "oneclang-syntax-vsc",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "bsl",
+      "aliases": ["1C", "bsl"],
+      "extensions": ["bsl"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "bsl",
+      "scopeName": "source.bsl",
+      "path": "./syntaxes/bsl.tmLanguage.json"
+    }]
+  }
+}
