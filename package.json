@@ -3,7 +3,8 @@
   "displayName": "%displayName%",
   "description": "%description%",
   "publisher": "IgorKilipenko",
-  "version": "0.1.0",
+  "icon": "images/onecalng_favicon.png",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.85.0"
   },
