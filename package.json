@@ -2,7 +2,8 @@
   "name": "oneclang-syntax-vsc",
   "displayName": "%displayName%",
   "description": "%description%",
-  "version": "0.0.1",
+  "publisher": "IgorKilipenko",
+  "version": "0.1.*",
   "engines": {
     "vscode": "^1.85.0"
   },
