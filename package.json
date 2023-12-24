@@ -19,7 +19,7 @@
           ".bsl"
         ],
         "aliases": [
-          "1C:Community",
+          "1Clang",
           "BSL"
         ],
         "configuration": "./language-configuration.json"
@@ -30,7 +30,7 @@
           ".sdbl"
         ],
         "aliases": [
-          "1C:Community.Query",
+          "1Clang.Query",
           "SDBL"
         ]
       }
