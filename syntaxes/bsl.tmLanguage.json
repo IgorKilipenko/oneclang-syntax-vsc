@@ -502,16 +502,29 @@
         "inblock-variables": {
             "patterns": [
                 {
-                    "comment": "inline variable",
-                    "name": "variable.other.readwrite.bsl, entity.name.variable.bsl",
-                    "match": "(?<!\\.\\s*)\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])"
+                    "match": "(?<!\\.\\s*)(\\b(?:[Жж]дать|[Aa]wait)?\\b)(?:\\s*)\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.flow.bsl"
+                        },
+                        "2": {
+                            "name": "variable.other.readwrite.bsl, entity.name.variable.bsl"
+                        }
+                    }
+                }
+            ]
+        },
+        "inblock-await": {
+            "patterns": [
+                {
+                    "match": "\\b([Жж]дать|[Aa]wait)(?:=\\s+)",
+                    "name": "keyword.control.flow.bsl"
                 }
             ]
         },
         "inblock-functions": {
             "patterns": [
                 {
-                    "comment": "inline function",
                     "begin": "\\b([_$[:alpha:]][_$[:alnum:]]*)\\b\\s*(\\()\\s*",
                     "beginCaptures": {
                         "1": { "name": "entity.name.function.bsl" },
@@ -594,6 +607,9 @@
                 },
                 {
                     "include": "#array-literal"
+                },
+                {
+                    "include": "#inblock-await"
                 }
             ]
         }
