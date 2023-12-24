@@ -1,30 +1,84 @@
 {
-    "comments": {
-        // symbol used for single line comment. Remove this entry if your language does not support line comments
-        "lineComment": "//",
-        // symbols used for start and end a block comment. Remove this entry if your language does not support block comments
-        "blockComment": [ "/*", "*/" ]
+    "folding": {
+        "markers": {
+            "start": "^\\s*#Область\\b",
+            "end": "^\\s*#КонецОбласти\\b"
+        }
     },
-    // symbols used as brackets
+    "comments": {
+        "lineComment": "//",
+        "blockComment": ["/*", "*/"]
+    },
     "brackets": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"]
     ],
-    // symbols that are auto closed when typing
     "autoClosingPairs": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
-        ["\"", "\""],
-        ["'", "'"]
+        {
+            "open": "Тогда",
+            "close": "КонецЕсли;",
+            "notIn": ["string", "comment"]
+        },
+        {
+            "open": "Функция",
+            "close": "КонецФункции",
+            "notIn": ["string", "comment"]
+        },
+        {
+            "open": "Процедура",
+            "close": "КонецПроцедуры",
+            "notIn": ["string", "comment"]
+        },
+        { "open": "\"", "close": "\"", "notIn": ["string"] }
     ],
-    // symbols that can be used to surround a selection
     "surroundingPairs": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
         ["\"", "\""],
-        ["'", "'"]
+        ["<", ">"]
+    ],
+    "colorizedBracketPairs": [
+        ["(", ")"],
+        ["[", "]"],
+        ["{", "}"],
+        ["<", ">"]
+    ],
+    "wordPattern": {
+        "pattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\@\\~\\!\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>/\\?\\s]+)"
+    },
+    "indentationRules": {
+        "decreaseIndentPattern": {
+            "pattern": "^((?!.*?/\\*).*\\*/)?\\s*[\\}\\]].*$|^\\s*Иначе\\s*$"
+        },
+        "increaseIndentPattern": {
+            "pattern": "^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)$"
+        },
+        "unIndentedLinePattern": {
+            "pattern": "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$"
+        }
+    },
+    "onEnterRules": [
+        {
+            "beforeText": "^\\s*Если\\s+.+Тогда\\s*$",
+            "action": { "indent": "indent" }
+        },
+        {
+            "beforeText": "^\\s*Иначе\\s*$",
+            "action": { "indent": "indent" }
+        },
+        {
+            "beforeText": "^\\s*(Процедура)|(Функция)\\s*$",
+            "afterText": "^\\s*Конец(Процедуры)|(Функции)\\s*$",
+            "action": { "indent": "indentOutdent" }
+        },
+        {
+            "beforeText": "^\\s*(?:Процедура)|(?:Функция)\\s+[А-Яа-яЁёA-Za-z_0-9]+\\s*\\(.*\\)\\s*$",
+            "action": { "indent": "indent" }
+        }
     ]
 }
