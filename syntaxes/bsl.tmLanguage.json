@@ -10,7 +10,7 @@
         },
         {
             "comment": "Proc and function definition",
-            "begin": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:([Аа]синх|[Aa]sync)\\s+)?([Пп]роцедура|[Pp]rocedure|[Ф]ункция|[Ff]unction)\\s+([_$[:alpha:]][_$[:alnum:]]*)\\s*(\\()",
+            "begin": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:([Аа]синх|[Aa]sync)\\s+)?([Пп]роцедура|[Pp]rocedure|[Фф]ункция|[Ff]unction)\\s+([_$[:alpha:]][_$[:alnum:]]*)\\s*(\\()",
             "beginCaptures": {
                 "1": {
                     "name": "storage.modifier.async.bsl"
