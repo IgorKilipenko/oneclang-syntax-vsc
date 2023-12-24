@@ -499,10 +499,9 @@
         "inblock-variables": {
             "patterns": [
                 {
-                    "match": "(?<!\\.\\s*)(?:\\b([Жж]дать)\\s+)?\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])",
+                    "match": "\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])",
                     "captures": {
-                        "1" : {"name": "keyword.control.flow.bsl"},
-                        "2" : {"name": "variable.other.readwrite.bsl, entity.name.variable.bsl"}
+                        "1" : {"name": "variable.other.readwrite.bsl, entity.name.variable.bsl"}
                     }
                 }
             ]
@@ -510,11 +509,10 @@
         "inblock-functions": {
             "patterns": [
                 {
-                    "begin": "(?:\\b([Жж]дать)\\s+)?\\b([_$[:alpha:]][_$[:alnum:]]*)\\b\\s*(\\()\\s*",
+                    "begin": "\\b([_$[:alpha:]][_$[:alnum:]]*)\\b\\s*(\\()\\s*",
                     "beginCaptures": {
-                        "1": { "name": "keyword.control.flow.bsl" },
-                        "2": { "name": "entity.name.function.bsl" },
-                        "3": { "name": "punctuation.bracket.begin.bsl" }
+                        "1": { "name": "entity.name.function.bsl" },
+                        "2": { "name": "punctuation.bracket.begin.bsl" }
                     },
                     "end": "\\s*(\\))",
                     "endCaptures": {
@@ -591,33 +589,20 @@
         "inblock-entities": {
             "patterns": [
                 {
-                    "include": "#inblock-variables"
-                },
-                {
-                    "include": "#inblock-functions"
-                },
-                {
-                    "include": "#inblock-objects"
+                    "include": "#inblock-await"
                 },
                 {
                     "include": "#array-literal"
                 },
                 {
-                    "include": "#inblock-await"
+                    "include": "#inblock-objects"
+                },
+                {
+                    "include": "#inblock-functions"
+                },
+                {
+                    "include": "#inblock-variables"
                 }
-            ]
-        },
-        "procedure-block": {
-            "begin": "(?<=[Пп]роцедура|[Pp]rocedure\\s*\\(\\s*\\.\\)\\s*[Ээ]кспорт|[Ee]xport\\s*)",
-            "end": "([Кк]онец[Пп]роцедуры|[Ee]nd[Pp]rocedure)",
-            "patterns": [
-                {
-                    "include": "#basic"
-                },
-                {
-                    "include": "#miscellaneous"
-                },
-                { "include": "#inblock-entities" }
             ]
         }
     }
