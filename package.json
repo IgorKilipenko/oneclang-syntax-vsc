@@ -44,7 +44,7 @@
       {
         "language": "sdbl",
         "scopeName": "source.sdbl",
-        "path": "./syntaxes/sdbl.tmLanguage"
+        "path": "./syntaxes/sdbl.tmLanguage.json"
       }
     ],
     "semanticTokenScopes": [
