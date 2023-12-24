@@ -10,7 +10,7 @@
         },
         {
             "comment": "Proc and function definition",
-            "begin": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:([Аа]синх|[Aa]sync)\\s+)?([Пп]роцедура|[Pp]rocedure|[Ф]ункция|[Ff]unction)\\s+([_$[:alpha:]][_$[:alnum:]]*)\\s*(\\()",
+            "begin": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:([Аа]синх|[Aa]sync)\\s+)?([Пп]роцедура|[Pp]rocedure|[Фф]ункция|[Ff]unction)\\s+([_$[:alpha:]][_$[:alnum:]]*)\\s*(\\()",
             "beginCaptures": {
                 "1": {
                     "name": "storage.modifier.async.bsl"
@@ -88,9 +88,6 @@
                 {
                     "name": "storage.modifier.bsl",
                     "match": "(?i:(?<=[^\\wа-яё\\.]|^)(Экспорт|Export)(?=[^\\wа-яё\\.]|$))"
-                },
-                {
-                    "include": "#inblock-entities"
                 }
             ]
         },
@@ -502,16 +499,16 @@
         "inblock-variables": {
             "patterns": [
                 {
-                    "comment": "inline variable",
-                    "name": "variable.other.readwrite.bsl, entity.name.variable.bsl",
-                    "match": "(?<!\\.\\s*)\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])"
+                    "match": "\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])",
+                    "captures": {
+                        "1" : {"name": "variable.other.readwrite.bsl, entity.name.variable.bsl"}
+                    }
                 }
             ]
         },
         "inblock-functions": {
             "patterns": [
                 {
-                    "comment": "inline function",
                     "begin": "\\b([_$[:alpha:]][_$[:alnum:]]*)\\b\\s*(\\()\\s*",
                     "beginCaptures": {
                         "1": { "name": "entity.name.function.bsl" },
@@ -581,19 +578,30 @@
                 }
             ]
         },
+        "inblock-await": {
+            "patterns": [
+                {
+                    "match": "\\b([Жж]дать|[Aa]wait)\\b",
+                    "name": "keyword.control.flow.bsl"
+                }
+            ]
+        },
         "inblock-entities": {
             "patterns": [
                 {
-                    "include": "#inblock-variables"
+                    "include": "#inblock-await"
                 },
                 {
-                    "include": "#inblock-functions"
+                    "include": "#array-literal"
                 },
                 {
                     "include": "#inblock-objects"
                 },
                 {
-                    "include": "#array-literal"
+                    "include": "#inblock-functions"
+                },
+                {
+                    "include": "#inblock-variables"
                 }
             ]
         }
