@@ -10,7 +10,7 @@
         },
         {
             "comment": "Proc and function definition",
-            "begin": "(?i:(?<=[^\\wа-яё\\.]|^)\\s*\\b(Асинх|Async)?\\s+(Процедура|Procedure|Функция|Function)\\s+([a-zа-яё0-9_]+)\\s*(\\())",
+            "begin": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:([Аа]синх|[Aa]sync)\\s+)?([Пп]роцедура|[Pp]rocedure|[Ф]ункция|[Ff]unction)\\s+([_$[:alpha:]][_$[:alnum:]]*)\\s*(\\()",
             "beginCaptures": {
                 "1": {
                     "name": "storage.modifier.async.bsl"
@@ -502,34 +502,20 @@
         "inblock-variables": {
             "patterns": [
                 {
-                    "match": "(?<!\\.\\s*)(\\b(?:[Жж]дать|[Aa]wait)?\\b)(?:\\s*)\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.flow.bsl"
-                        },
-                        "2": {
-                            "name": "variable.other.readwrite.bsl, entity.name.variable.bsl"
-                        }
-                    }
-                }
-            ]
-        },
-        "inblock-await": {
-            "patterns": [
-                {
-                    "match": "\\b([Жж]дать|[Aa]wait)(?:=\\s+)",
-                    "name": "keyword.control.flow.bsl"
+                    "comment": "inline variable",
+                    "name": "variable.other.readwrite.bsl, entity.name.variable.bsl",
+                    "match": "(?<!\\.\\s*)\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])"
                 }
             ]
         },
         "inblock-functions": {
             "patterns": [
                 {
-                    "begin": "(\\b(?:[Жж]дать|[Aa]wait)?\\b)(?:\\s*)\\b([_$[:alpha:]][_$[:alnum:]]*)\\b\\s*(\\()\\s*",
+                    "comment": "inline function",
+                    "begin": "\\b([_$[:alpha:]][_$[:alnum:]]*)\\b\\s*(\\()\\s*",
                     "beginCaptures": {
-                        "1": { "name": "keyword.control.flow.bsl" },
-                        "2": { "name": "entity.name.function.bsl" },
-                        "3": { "name": "punctuation.bracket.begin.bsl" }
+                        "1": { "name": "entity.name.function.bsl" },
+                        "2": { "name": "punctuation.bracket.begin.bsl" }
                     },
                     "end": "\\s*(\\))",
                     "endCaptures": {
@@ -608,9 +594,6 @@
                 },
                 {
                     "include": "#array-literal"
-                },
-                {
-                    "include": "#inblock-await"
                 }
             ]
         }
