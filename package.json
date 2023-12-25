@@ -4,7 +4,7 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.3.6-dev.1",
+  "version": "0.3.8-dev.1",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -115,6 +115,22 @@
             ],
             "settings": {
               "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": [
+              "keyword.operator.logical.sdbl"
+            ],
+            "settings": {
+              "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": [
+              "variable.parameter.sdbl"
+            ],
+            "settings": {
+              "fontStyle": "underline"
             }
           }
         ]
