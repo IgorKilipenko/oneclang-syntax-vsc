@@ -29,6 +29,9 @@
             ]
         },
         {
+            "include": "#keywords"
+        },
+        {
             "name": "constant.language.sdbl",
             "match": "(?i)(?<=[^\\wа-яё\\.]|^)(Неопределено|Undefined|Истина|True|Ложь|False|NULL)(?=[^\\wа-яё\\.]|$)"
         },
@@ -92,6 +95,57 @@
         {
             "name": "variable.parameter.sdbl",
             "match": "(&[\\wа-яё]+)"
+        },
+        {
+            "include": "#properties"
+        },
+        {
+            "include": "#variables"
         }
-    ]
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+                {
+                    "match": "\\s+(?i)В|In\\s+",
+                    "name": "keyword.control.sdbl" }
+            ]
+        },
+        "variables": {
+            "patterns": [
+                {
+                    "match": "\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=[\\s*\\[]?)(?![\\(])",
+                    "captures": {
+                        "1" : {"name": "variable.other.readwrite.sdbl, entity.name.variable.sdbl"}
+                    }
+                }
+            ]
+        },
+        "properties": {
+            "patterns": [
+                {
+                    "match": "(?<=\\b[_$[:alpha:]][_$[:alnum:]]*\\s*)(\\.)(?:\\s*)([_$[:alpha:]][_$[:alnum:]]*\\b)(?=[\\s*\\[]?)(?!\\()",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.accessor.sdbl"
+                        },
+                        "2": {
+                            "name": "variable.other.property.sdbl"
+                        }
+                    }
+                },
+                {
+                    "match": "(?<=[\\s\\]]*)(\\.)(?:\\s*)([_$[:alpha:]][_$[:alnum:]]*\\b)(?=[\\s*\\[]?)(?!\\()",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.accessor.sdbl"
+                        },
+                        "2": {
+                            "name": "variable.other.property.sdbl"
+                        }
+                    }
+                }
+            ]
+        }
+    }
 }
