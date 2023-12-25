@@ -24,11 +24,21 @@
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
-        ["\"", "\""],
+        ["\"", "\""]
     ],
     "colorizedBracketPairs": [
         ["(", ")"],
         ["[", "]"],
-        ["{", "}"],
-    ]
+        ["{", "}"]
+    ],
+    "indentationRules": {
+        "decreaseIndentPattern": {
+            "pattern": "^\\s*(из|from|где|where)\\s*",
+            "flags": "i"
+        },
+        "increaseIndentPattern": {
+            "pattern": "(\\s+|^)(?:выбрать|select|из|from|где|where)\\s*",
+            "flags": "i"
+        }
+    }
 }
