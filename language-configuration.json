@@ -113,6 +113,17 @@
 			"action": {
 				"indent": "indent"
 			}
+		},
+        {
+			"beforeText": {
+				"pattern": "(?<!\\s\\t)+\\s*"
+			},
+			"afterText": {
+				"pattern": "\\s*([Кк]онец|[Ee]nd)[a-zA-Zа-яА-Я]*\\s*;\\s*$"
+			},
+			"action": {
+				"indent": "outdent"
+			}
 		}
     ]
 }
