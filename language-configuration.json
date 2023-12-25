@@ -18,67 +18,101 @@
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
-        {
-            "open": "Тогда",
-            "close": "КонецЕсли;",
-            "notIn": ["string", "comment"]
-        },
-        {
-            "open": "Функция",
-            "close": "КонецФункции",
-            "notIn": ["string", "comment"]
-        },
-        {
-            "open": "Процедура",
-            "close": "КонецПроцедуры",
-            "notIn": ["string", "comment"]
-        },
         { "open": "\"", "close": "\"", "notIn": ["string"] }
     ],
     "surroundingPairs": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
-        ["\"", "\""],
-        ["<", ">"]
+        ["\"", "\""]
     ],
     "colorizedBracketPairs": [
         ["(", ")"],
         ["[", "]"],
-        ["{", "}"],
-        ["<", ">"]
+        ["{", "}"]
     ],
-    "wordPattern": {
-        "pattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\@\\~\\!\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>/\\?\\s]+)"
-    },
-    "indentationRules": {
-        "decreaseIndentPattern": {
-            "pattern": "^((?!.*?/\\*).*\\*/)?\\s*[\\}\\]].*$|^\\s*Иначе\\s*$"
-        },
-        "increaseIndentPattern": {
-            "pattern": "^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)$"
-        },
-        "unIndentedLinePattern": {
-            "pattern": "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$"
-        }
-    },
+	"wordPattern": {
+		"pattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\@\\!\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>/\\?\\s]+)",
+	},
+	"indentationRules": {
+		"decreaseIndentPattern": {
+			"pattern": "^(((?!.*?/\\*).*\\*\/)?\\s*[\\}\\]].*)|(\\s*([Кк]онец|[Ee]nd)[a-zA-Zа-яА-Я]*\\s*;\\s*)$"
+		},
+		"increaseIndentPattern": {
+			"pattern": "(^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)|\\s+([Тт]огда|[Tt]hen|[Ии]наче|[Ee]lse|[Цц]икл|[Ll]oop)\\s*)$"
+		},
+        // e.g.  * ...| or */| or *-----*/|
+		"unIndentedLinePattern": {
+			"pattern": "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$"
+		}
+	},
     "onEnterRules": [
         {
-            "beforeText": "^\\s*Если\\s+.+Тогда\\s*$",
-            "action": { "indent": "indent" }
-        },
-        {
-            "beforeText": "^\\s*Иначе\\s*$",
-            "action": { "indent": "indent" }
-        },
-        {
-            "beforeText": "^\\s*(Процедура)|(Функция)\\s*$",
-            "afterText": "^\\s*Конец(Процедуры)|(Функции)\\s*$",
-            "action": { "indent": "indentOutdent" }
-        },
-        {
-            "beforeText": "^\\s*(?:Процедура)|(?:Функция)\\s+[А-Яа-яЁёA-Za-z_0-9]+\\s*\\(.*\\)\\s*$",
-            "action": { "indent": "indent" }
-        }
+			// e.g. /** | */
+			"beforeText": {
+				"pattern": "^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$"
+			},
+			"afterText": {
+				"pattern": "^\\s*\\*/$"
+			},
+			"action": {
+				"indent": "indentOutdent",
+				"appendText": " * "
+			}
+		},
+		{
+			// e.g. /** ...|
+			"beforeText": {
+				"pattern": "^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$"
+			},
+			"action": {
+				"indent": "none",
+				"appendText": " * "
+			}
+		},
+		{
+			// e.g.  * ...|
+			"beforeText": {
+				"pattern": "^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$"
+			},
+			"previousLineText": {
+				"pattern": "(?=^(\\s*(/\\*\\*|\\*)).*)(?=(?!(\\s*\\*/)))"
+			},
+			"action": {
+				"indent": "none",
+				"appendText": "* "
+			}
+		},
+		{
+			// e.g.  */|
+			"beforeText": {
+				"pattern": "^(\\t|[ ])*[ ]\\*/\\s*$"
+			},
+			"action": {
+				"indent": "none",
+				"removeText": 1
+			},
+		},
+		{
+			// e.g.  *-----*/|
+			"beforeText": {
+				"pattern": "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$"
+			},
+			"action": {
+				"indent": "none",
+				"removeText": 1
+			},
+		},
+		{
+			"beforeText": {
+				"pattern": "^\\s*(\\bcase\\s.+:|\\bdefault:)$"
+			},
+			"afterText": {
+				"pattern": "^(?!\\s*(\\bcase\\b|\\bdefault\\b))"
+			},
+			"action": {
+				"indent": "indent"
+			}
+		}
     ]
 }
