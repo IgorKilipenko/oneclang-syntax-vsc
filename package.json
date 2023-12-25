@@ -4,7 +4,7 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.3.0",
+  "version": "0.3.6-dev.1",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -22,7 +22,7 @@
           "1Clang",
           "BSL"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./configs/bsl-language-configuration.json"
       },
       {
         "id": "sdbl",
@@ -32,7 +32,8 @@
         "aliases": [
           "1Clang.Query",
           "SDBL"
-        ]
+        ],
+        "configuration": "./configs/sdbl-language-configuration.json"
       }
     ],
     "grammars": [
@@ -83,7 +84,10 @@
         "[*Dark*]": {
           "textMateRules": [
             {
-              "scope": "variable.other.property.bsl",
+              "scope": [
+                "variable.other.property.bsl",
+                "variable.other.property.sdbl"
+              ],
               "settings": {
                 "foreground": "#4FC1FF"
               }
@@ -93,7 +97,10 @@
         "[*Light*]": {
           "textMateRules": [
             {
-              "scope": "variable.other.property.bsl",
+              "scope": [
+                "variable.other.property.bsl",
+                "variable.other.property.sdbl"
+              ],
               "settings": {
                 "foreground": "#120052"
               }
@@ -102,7 +109,10 @@
         },
         "textMateRules": [
           {
-            "scope": "support.function.bsl",
+            "scope": [
+              "support.function.bsl",
+              "support.function.sdbl"
+            ],
             "settings": {
               "fontStyle": "bold"
             }
