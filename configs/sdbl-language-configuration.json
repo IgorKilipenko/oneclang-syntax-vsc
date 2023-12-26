@@ -37,11 +37,8 @@
             "flags": "i"
         },
         "increaseIndentPattern": {
-            "pattern": "(\\s+|^)(?:выбрать|select|из|from|где|where|(сгруппировать\\s+по|group\\s+by))\\s*",
+            "pattern": "(\\s+|^)(?:выбрать|select|из|from|где|where|(и|and|или|or)|(сгруппировать\\s+по|group\\s+by))|(?=и|and|или|or)\\s*",
             "flags": "i"
-        },
-        "unIndentedLinePattern": {
-            "pattern": "^\\s*"
         }
     },
     "onEnterRules": [
