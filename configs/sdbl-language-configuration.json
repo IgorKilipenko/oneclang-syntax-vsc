@@ -1,0 +1,62 @@
+{
+    "folding": {
+        "markers": {
+            "start": "^\\s*#Область\\b",
+            "end": "^\\s*#КонецОбласти\\b"
+        }
+    },
+    "comments": {
+        "lineComment": "//",
+        "blockComment": ["/*", "*/"]
+    },
+    "brackets": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"]
+    ],
+    "autoClosingPairs": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        { "open": "\"", "close": "\"", "notIn": ["string"] }
+    ],
+    "surroundingPairs": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["\"", "\""]
+    ],
+    "colorizedBracketPairs": [
+        ["(", ")"],
+        ["[", "]"],
+        ["{", "}"]
+    ],
+    "indentationRules": {
+        "decreaseIndentPattern": {
+            "pattern": "^\\s*(из|from|где|where|(сгруппировать\\s+по|group\\s+by))\\s*",
+            "flags": "i"
+        },
+        "increaseIndentPattern": {
+            "pattern": "(\\s+|^)(?:выбрать|select|из|from|где|where|(и|and|или|or)|(сгруппировать\\s+по|group\\s+by))|(?=и|and|или|or)\\s*",
+            "flags": "i"
+        }
+    },
+    "onEnterRules": [
+        {
+            "beforeText": "^\\s*[^\\s]+\\s*",
+            "afterText": {
+                "pattern": "\\s*(и|and|или|or)\\s+",
+                "flags": "i"
+            },
+            "action": {
+                "indent": "indent"
+            }
+        },
+        {
+            "beforeText": ";\\s*",
+            "action": {
+                "indent": "outdent"
+            }
+        }
+    ]
+}

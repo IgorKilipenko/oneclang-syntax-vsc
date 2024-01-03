@@ -4,12 +4,17 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.2.7",
+  "version": "0.3.13",
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
     "Programming Languages"
+  ],
+  "main": "./out/extension",
+  "activationEvents": [
+    "onLanguage:bsl",
+    "onLanguage:sdbl"
   ],
   "contributes": {
     "languages": [
@@ -22,7 +27,7 @@
           "1Clang",
           "BSL"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./configs/bsl-language-configuration.json"
       },
       {
         "id": "sdbl",
@@ -32,7 +37,8 @@
         "aliases": [
           "1Clang.Query",
           "SDBL"
-        ]
+        ],
+        "configuration": "./configs/sdbl-language-configuration.json"
       }
     ],
     "grammars": [
@@ -44,7 +50,7 @@
       {
         "language": "sdbl",
         "scopeName": "source.sdbl",
-        "path": "./syntaxes/sdbl.tmLanguage"
+        "path": "./syntaxes/sdbl.tmLanguage.json"
       }
     ],
     "semanticTokenScopes": [
@@ -83,7 +89,10 @@
         "[*Dark*]": {
           "textMateRules": [
             {
-              "scope": "variable.other.property.bsl",
+              "scope": [
+                "variable.other.property.bsl",
+                "variable.other.property.sdbl"
+              ],
               "settings": {
                 "foreground": "#4FC1FF"
               }
@@ -93,7 +102,10 @@
         "[*Light*]": {
           "textMateRules": [
             {
-              "scope": "variable.other.property.bsl",
+              "scope": [
+                "variable.other.property.bsl",
+                "variable.other.property.sdbl"
+              ],
               "settings": {
                 "foreground": "#120052"
               }
@@ -102,9 +114,28 @@
         },
         "textMateRules": [
           {
-            "scope": "support.function.bsl",
+            "scope": [
+              "support.function.bsl",
+              "support.function.sdbl"
+            ],
             "settings": {
               "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": [
+              "keyword.operator.logical.sdbl"
+            ],
+            "settings": {
+              "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": [
+              "variable.parameter.sdbl"
+            ],
+            "settings": {
+              "fontStyle": "underline"
             }
           }
         ]
@@ -114,5 +145,18 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/IgorKilipenko/oneclang-syntax-vsc"
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "typescript": "^5.3.3",
+    "vscode": "^1.1.37"
   }
 }

@@ -1,0 +1,129 @@
+{
+    "folding": {
+        "markers": {
+            "start": "^\\s*#Область\\b",
+            "end": "^\\s*#КонецОбласти\\b"
+        }
+    },
+    "comments": {
+        "lineComment": "//",
+        "blockComment": ["/*", "*/"]
+    },
+    "brackets": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"]
+    ],
+    "autoClosingPairs": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        { "open": "\"", "close": "\"", "notIn": ["string"] }
+    ],
+    "surroundingPairs": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["\"", "\""]
+    ],
+    "colorizedBracketPairs": [
+        ["(", ")"],
+        ["[", "]"],
+        ["{", "}"]
+    ],
+	"wordPattern": {
+		"pattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\@\\!\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>/\\?\\s]+)",
+	},
+	"indentationRules": {
+		"decreaseIndentPattern": {
+			"pattern": "^(((?!.*?/\\*).*\\*\/)?\\s*[\\}\\]].*)|(\\s*([Кк]онец|[Ee]nd)[a-zA-Zа-яА-Я]*\\s*[иыne;]\\s*)$"
+		},
+		"increaseIndentPattern": {
+			"pattern": "(^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)|\\s+([Тт]огда|[Tt]hen|[Ии]наче|[Ee]lse|[Цц]икл|[Ll]oop|[Ээ]кспорт|[Ee]xport)\\s*)|(^\\s*([Пп]роцедура|[Pз]rocedure|[Фф]ункция|[Fа]unction)\\s+[а-яА-ЯЁе\\w\\_\\[\\]\\(\\)\\s]+)$"
+		},
+        // e.g.  * ...| or */| or *-----*/|
+		"unIndentedLinePattern": {
+			"pattern": "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$"
+		}
+	},
+    "onEnterRules": [
+        {
+			// e.g. /** | */
+			"beforeText": {
+				"pattern": "^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$"
+			},
+			"afterText": {
+				"pattern": "^\\s*\\*/$"
+			},
+			"action": {
+				"indent": "indentOutdent",
+				"appendText": " * "
+			}
+		},
+		{
+			// e.g. /** ...|
+			"beforeText": {
+				"pattern": "^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$"
+			},
+			"action": {
+				"indent": "none",
+				"appendText": " * "
+			}
+		},
+		{
+			// e.g.  * ...|
+			"beforeText": {
+				"pattern": "^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$"
+			},
+			"previousLineText": {
+				"pattern": "(?=^(\\s*(/\\*\\*|\\*)).*)(?=(?!(\\s*\\*/)))"
+			},
+			"action": {
+				"indent": "none",
+				"appendText": "* "
+			}
+		},
+		{
+			// e.g.  */|
+			"beforeText": {
+				"pattern": "^(\\t|[ ])*[ ]\\*/\\s*$"
+			},
+			"action": {
+				"indent": "none",
+				"removeText": 1
+			},
+		},
+		{
+			// e.g.  *-----*/|
+			"beforeText": {
+				"pattern": "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$"
+			},
+			"action": {
+				"indent": "none",
+				"removeText": 1
+			},
+		},
+		{
+			"beforeText": {
+				"pattern": "^\\s*(\\bcase\\s.+:|\\bdefault:)$"
+			},
+			"afterText": {
+				"pattern": "^(?!\\s*(\\bcase\\b|\\bdefault\\b))"
+			},
+			"action": {
+				"indent": "indent"
+			}
+		},
+        {
+			"beforeText": {
+				"pattern": "(?<!\\s)+\\s*"
+			},
+			"afterText": {
+				"pattern": "\\s*([Кк]онец|[Ee]nd)[a-zA-Zа-яА-Я]*\\s*[иыne;]\\s*$"
+			},
+			"action": {
+				"indent": "outdent"
+			}
+		}
+    ]
+}
