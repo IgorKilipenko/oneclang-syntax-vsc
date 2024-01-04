@@ -359,7 +359,7 @@
         "blockFunctions": {
             "patterns": [
                 {
-                    "begin": "\\b([_$[:alpha:]][_$[:alnum:]]*)\\b\\s*(\\()\\s*",
+                    "begin": "\\b([_$[:alpha:]][_$[:alnum:]]*\\b)(?:\\s*)(\\()\\s*",
                     "beginCaptures": {
                         "1": {
                             "name": "entity.name.function.bsl"
@@ -388,18 +388,7 @@
         "blockObjects": {
             "patterns": [
                 {
-                    "match": "(?<=\\b[_$[:alpha:]][_$[:alnum:]]*\\s*)(\\.)(?:\\s*)([_$[:alpha:]][_$[:alnum:]]*\\b)(?=[\\s*\\[]?)(?!\\()",
-                    "captures": {
-                        "1": {
-                            "name": "punctuation.accessor.bsl"
-                        },
-                        "2": {
-                            "name": "variable.other.property.bsl"
-                        }
-                    }
-                },
-                {
-                    "match": "(?<=[\\s\\]]*)(\\.)(?:\\s*)([_$[:alpha:]][_$[:alnum:]]*\\b)(?=[\\s*\\[]?)(?!\\()",
+                    "match": "(?<=(?:\\b[_$[:alpha:]][_$[:alnum:]]*\\s*)|(?:[\\s\\]]*))(\\.)(?:\\s*)([_$[:alpha:]][_$[:alnum:]]*\\b)(?:\\s*)(?=[\\[]?)(?!\\s*\\()",
                     "captures": {
                         "1": {
                             "name": "punctuation.accessor.bsl"
@@ -451,10 +440,10 @@
                     "include": "#arrayLiteral"
                 },
                 {
-                    "include": "#blockObjects"
+                    "include": "#blockFunctions"
                 },
                 {
-                    "include": "#blockFunctions"
+                    "include": "#blockObjects"
                 },
                 {
                     "include": "#blockVariables"
