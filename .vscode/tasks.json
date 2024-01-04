@@ -15,6 +15,38 @@
                 "kind": "build",
                 "isDefault": true
             }
-        }
+        },
+        {
+            "label": "package-pre-release",
+            "hide": true,
+            "type": "shell",
+            "command": "vsce",
+            "args": [
+                "package",
+                "--pre-release"
+            ],
+            "presentation": {
+                "reveal": "silent",
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "publish-pre-release",
+            "type": "shell",
+            "command": "vsce",
+            "args": [
+                "publish",
+                "--pre-release",
+                "--skip-duplicate"
+            ],
+            "presentation": {
+                "reveal": "always",
+            },
+            "dependsOn": [
+                "package-pre-release"
+            ],
+        },
     ]
 }
