@@ -1,15 +1,16 @@
-import { ExtensionContext, Position, Range, TextDocumentChangeEvent, window, workspace, WorkspaceConfiguration } from 'vscode';
+import { type ExtensionContext, Position, Range, type TextDocumentChangeEvent, window, workspace } from 'vscode';
 
 interface ReplacePattern {
-    from: RegExp,
-    to: string,
+    from: RegExp
+    to: string
     removeFirstCount?: number
     removeLastCount?: number
+    additionalTest?: (textBefore: string, textAfter: string) => boolean
 }
 
 const replacePatterns: Array<ReplacePattern> = [
     { from: /^БЮ$/, to: "<>" },
-    { from: /^\!\=$/, to: "<>" },
+    { from: /^!=$/, to: "<>" },
     { from: /^б$/, to: ",", removeFirstCount: 1 },
     { from: /^Б$/, to: "<" },
     { from: /^Ю$/, to: ">" },
@@ -21,18 +22,19 @@ const replacePatterns: Array<ReplacePattern> = [
     { from: /^\?$/, to: "&", removeLastCount: 1 },
     { from: /^Э$/, to: "\"" },
     { from: /^\/$/, to: "|" },
-    { from: /^№[Оо]бласть$/, to: "#Область" }
+    { from: /^№[Оо]бласть$/, to: "#Область" },
+    { from: /^№[Кк]онец[Оо]бласти$/, to: "#КонецОбласти" }
 ];
 
-export function activate(_context: ExtensionContext) {
+export const activate = (context: ExtensionContext) => {
     workspace.onDidChangeTextDocument(event => {
-        correctTheWord(event);
+        replaceSpecSymbols(event);
     });
-}
+};
 
-export function deactivate() { }
+export const deactivate = () => { };
 
-function correctTheWord(event: TextDocumentChangeEvent): void {
+const replaceSpecSymbols = (event: TextDocumentChangeEvent): void => {
     if (!event.contentChanges.length) {
         return;
     }
@@ -62,7 +64,7 @@ function correctTheWord(event: TextDocumentChangeEvent): void {
     const endPosition = new Position(originalPosition.line, startPositionIndex + match[0].length);
 
     replacePatterns.forEach(p => {
-        if (!p.from.test(match[0])) {
+        if (!(p.from.test(match[0]) && (!p.additionalTest || p.additionalTest("", "")))) {
             return;
         }
 
@@ -70,7 +72,7 @@ function correctTheWord(event: TextDocumentChangeEvent): void {
             const contentChangeRange = new Range(p.removeFirstCount ? startPosition.translate(0, -p.removeFirstCount) : startPosition,
                 p.removeLastCount ? endPosition.translate(0, p.removeLastCount) : endPosition);
             builder.replace(contentChangeRange, p.to);
-        })
+        });
     });
-}
+};
 
