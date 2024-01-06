@@ -4,7 +4,7 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -151,11 +151,14 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "pretest": "npm run compile",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint ./src --ext .ts",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/node": "^20.10.6",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "eslint": "^8.56.0",
     "typescript": "^5.3.3",
     "vscode": "^1.1.37"
   }
