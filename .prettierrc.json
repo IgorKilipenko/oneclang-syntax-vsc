@@ -1,4 +1,5 @@
 {
     "semi": true,
-    "embeddedLanguageFormatting": "auto"
+    "embeddedLanguageFormatting": "auto",
+    "printWidth": 120
 }
