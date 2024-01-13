@@ -4,13 +4,13 @@
         "target": "ES2022",
         "outDir": "out",
         "lib": [
-            "ES2022"
+            "ES2023"
         ],
         "sourceMap": true,
         "rootDir": "src",
         "allowSyntheticDefaultImports": true,
         "strict": true,
-        "esModuleInterop": true,
+        "esModuleInterop": true
     },
     "ts-node": {
         "esm": true
