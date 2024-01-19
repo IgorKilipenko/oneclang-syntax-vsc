@@ -6,7 +6,7 @@ import type {
     TextDocument,
 } from "vscode";
 import { Position as VscPosition, TextEdit, Range } from "vscode";
-import { createParser, BslListener } from "bsl-parser";
+import { createParser, BslListener, BslRawRegion, BslRawFunction, IActiveContext, ActiveContext } from "bsl-parser";
 
 export class FormattingProvider implements DocumentFormattingEditProvider {
     provideDocumentFormattingEdits(
@@ -14,10 +14,6 @@ export class FormattingProvider implements DocumentFormattingEditProvider {
         options: FormattingOptions,
         token: CancellationToken,
     ): ProviderResult<TextEdit[]> {
-        //- const detectIntentLevel = (line: string) => {
-        //-     return /(?<=^\s+|^)\S/.exec(line)?.index ?? 0;
-        //- };
-
         const documentText = document.getText();
         const parser = createParser(documentText);
         parser.addParseListener(new BslListener());
@@ -29,6 +25,25 @@ export class FormattingProvider implements DocumentFormattingEditProvider {
             const indentValue: string = options.insertSpaces ? " ".repeat(options.tabSize) : "\t";
 
             const result: Array<TextEdit> = [];
+
+            const isInsideBlockLine = (line: number, block: IActiveContext | BslRawFunction) => {
+                let start: number | null = null;
+                let stop: number | null = null;
+
+                if (ActiveContext.isActiveContextObject(block)) {
+                    start = block.ctx.start?.line ?? null;
+                    stop = block.endCtx?.start?.line ?? null;
+                }
+
+                if (block instanceof BslRawFunction) {
+                    start = block.parseContext.start?.line ?? null;
+                    stop = block.parseContext.stop?.line ?? null;
+                }
+
+                console.assert(start !== null && stop !== null);
+
+                return start !== null && stop !== null && line > start - 1 && line < stop - 1;
+            };
 
             const formatRegions = (region: (typeof parsingInfo.activeContextQueue)[0]) => {
                 const startPosition = new VscPosition(
@@ -55,17 +70,17 @@ export class FormattingProvider implements DocumentFormattingEditProvider {
                     if (
                         !!region.childrenCtx?.length &&
                         region.childrenCtx.reduce<boolean>((res, curr) => {
-                            return res && line > curr.ctx.start!.line - 1 && line < curr.endCtx!.start!.line - 1;
+                            return res && isInsideBlockLine(line, curr);
                         }, true)
                     ) {
                         continue;
                     }
 
-                    const currIntents = document.lineAt(line).firstNonWhitespaceCharacterIndex;
+                    const currIndents = document.lineAt(line).firstNonWhitespaceCharacterIndex;
 
                     result.push(
                         TextEdit.replace(
-                            new Range(new VscPosition(line, 0), new VscPosition(line, currIntents)),
+                            new Range(new VscPosition(line, 0), new VscPosition(line, currIndents)),
                             indentValue.repeat(indentLevel + region.innerIndex),
                         ),
                     );
