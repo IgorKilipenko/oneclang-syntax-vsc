@@ -6,7 +6,8 @@ import type {
     TextDocument,
 } from "vscode";
 import { Position as VscPosition, TextEdit, Range } from "vscode";
-import { createParser, BslListener, BslRawRegion, BslRawFunction, IActiveContext, ActiveContext } from "bsl-parser";
+import type { BslRawFunction, IActiveContext } from "bsl-parser";
+import { createParser, BslListener } from "bsl-parser";
 
 export class FormattingProvider implements DocumentFormattingEditProvider {
     provideDocumentFormattingEdits(
@@ -18,7 +19,7 @@ export class FormattingProvider implements DocumentFormattingEditProvider {
         const parser = createParser(documentText);
         parser.addParseListener(new BslListener());
 
-        const processEx = () => {
+        const process = () => {
             const { parsingInfo } = parser.parseModule();
 
             const indentLevel = 1;
@@ -26,33 +27,63 @@ export class FormattingProvider implements DocumentFormattingEditProvider {
 
             const result: Array<TextEdit> = [];
 
-            const isInsideBlockLine = (line: number, block: IActiveContext | BslRawFunction) => {
-                let start: number | null = null;
-                let stop: number | null = null;
+            const formatFunction = (func: BslRawFunction) => {
+                const result = { edits: new Array<TextEdit>(), lines: new Set<number>() };
+                const start = func.parseContext.subCodeBlock().start;
+                const stop = func.parseContext.subCodeBlock().stop;
 
-                if (ActiveContext.isActiveContextObject(block)) {
-                    start = block.ctx.start?.line ?? null;
-                    stop = block.endCtx?.start?.line ?? null;
+                if (start === null || stop === null) {
+                    return result;
                 }
 
-                if (block instanceof BslRawFunction) {
-                    start = block.parseContext.start?.line ?? null;
-                    stop = block.parseContext.stop?.line ?? null;
+                start.line -= 1;
+                stop.line -= 1;
+
+                for (let line = start.line; line <= stop.line; ++line) {
+                    result.lines.add(line);
+
+                    const docLine = document.lineAt(line);
+                    if (docLine.isEmptyOrWhitespace) {
+                        continue;
+                    }
+
+                    const currIndents = docLine.firstNonWhitespaceCharacterIndex;
+
+                    result.edits.push(
+                        TextEdit.replace(
+                            new Range(new VscPosition(line, 0), new VscPosition(line, currIndents)),
+                            indentValue.repeat(indentLevel + (func.parseContext.indentIndex ?? 0)),
+                        ),
+                    );
                 }
 
-                console.assert(start !== null && stop !== null);
-
-                return start !== null && stop !== null && line > start - 1 && line < stop - 1;
+                return result;
             };
 
-            const formatRegions = (region: (typeof parsingInfo.activeContextQueue)[0]) => {
+            const getRegionIgnoreLines = (region: IActiveContext): Set<number> => {
+                return region.children?.reduce((res, curr) => {
+                        const start = curr.regionStartContext.start?.line ?? null;
+                        const stop = curr.regionEndContext?.start?.line ?? null;
+                        if (start === null || stop === null) {
+                            return res;
+                        }
+
+                        for (let line = start + 1; line < stop; ++line) {
+                            res.add(line - 1);
+                        }
+
+                        return res;
+                    }, new Set<number>()) ?? new Set<number>();
+            };
+
+            const formatRegion = (region: IActiveContext) => {
                 const startPosition = new VscPosition(
-                    (region.ctx.start?.line ?? 1) - 1,
-                    region.ctx?.start?.column ?? 0,
+                    (region.regionStartContext.start?.line ?? 1) - 1,
+                    region.regionStartContext?.start?.column ?? 0,
                 );
                 const endPosition = new VscPosition(
-                    (region.endCtx?.start?.line ?? 1) - 1,
-                    region.endCtx?.start?.column ?? 0,
+                    (region.regionEndContext?.start?.line ?? 1) - 1,
+                    region.regionEndContext?.start?.column ?? 0,
                 );
 
                 if (endPosition.line - startPosition.line <= 1) {
@@ -66,17 +97,29 @@ export class FormattingProvider implements DocumentFormattingEditProvider {
                         : endPosition.line > startPosition.line,
                 );
 
+                const ignoreLines = getRegionIgnoreLines(region);
+
+                if (region.innerIndex === 0) {
+                    region.subs.forEach((func) => {
+                        const formatResult = formatFunction(func);
+                        result.push(...formatResult.edits);
+                        formatResult.lines.forEach((line) => {
+                            ignoreLines.add(line);
+                        });
+                    });
+                }
+
                 for (let line = startPosition.line + 1; line < endPosition.line; ++line) {
-                    if (
-                        !!region.childrenCtx?.length &&
-                        region.childrenCtx.reduce<boolean>((res, curr) => {
-                            return res && isInsideBlockLine(line, curr);
-                        }, true)
-                    ) {
+                    if (ignoreLines.has(line)) {
                         continue;
                     }
 
-                    const currIndents = document.lineAt(line).firstNonWhitespaceCharacterIndex;
+                    const docLine = document.lineAt(line);
+                    const currIndents = docLine.firstNonWhitespaceCharacterIndex;
+                    if (docLine.isEmptyOrWhitespace && currIndents > 0) {
+                        result.push(TextEdit.replace(docLine.range, ""));
+                        continue;
+                    }
 
                     result.push(
                         TextEdit.replace(
@@ -88,12 +131,12 @@ export class FormattingProvider implements DocumentFormattingEditProvider {
             };
 
             parsingInfo.activeContextQueue.forEach((region) => {
-                region.isRegion && formatRegions(region);
+                region.isRegion && formatRegion(region);
             });
             return result;
         };
 
-        return processEx();
+        return process();
     }
 
     format() {}
