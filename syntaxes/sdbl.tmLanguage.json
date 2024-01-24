@@ -17,6 +17,9 @@
             "include": "#types"
         },
         {
+            "include": "#tableTypes"
+        },
+        {
             "include": "#parameters"
         },
         {
@@ -24,6 +27,9 @@
         },
         {
             "include": "#properties"
+        },
+        {
+            "include": "#virtualTable"
         },
         {
             "include": "#variables"
@@ -215,6 +221,33 @@
                             "name": "variable.other.property.sdbl"
                         }
                     }
+                }
+            ]
+        },
+        "virtualTable": {
+            "patterns": [
+                {
+                    "match": "\\bВТ_[_$[:alpha:]][_$[:alnum:]]*\\b",
+                    "name": "variable.other.readwrite.sdbl, entity.name.variable.sdbl, variable.parameter.sdbl"
+                }
+            ]
+        },
+        "registerTable": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<=\\s+|\\|)Регистр(?:Накопления|Сведений|Бухгалтерии)(?=\\s+|\\.)",
+                    "name": "support.type.sdbl"
+                }
+            ]
+        },
+        "tableTypes": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<=\\s+|\\|)(Документ|Справочник)(?=\\s+|\\.)",
+                    "name": "support.type.sdbl"
+                },
+                {
+                    "include": "#registerTable"
                 }
             ]
         }
