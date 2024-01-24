@@ -215,6 +215,9 @@
                         {
                             "name": "comment.line.double-slash.bsl",
                             "match": "(^\\s*//.*$)"
+                        },
+                        {
+                            "include": "#stringPatternParameter"
                         }
                     ]
                 },
@@ -307,12 +310,15 @@
         "blockFunctions": {
             "patterns": [
                 {
-                    "begin": "(?<!(?i:Новый|New)\\s+)\\b([_$[:alpha:]][_$[:alnum:]]*\\b)(?:\\s*)(\\()\\s*",
+                    "begin": "(?<!(?i:Новый|New)\\s+)(?:\\s*(\\.)\\s*)?\\b([_$[:alpha:]][_$[:alnum:]]*\\b)(?:\\s*)(\\()\\s*",
                     "beginCaptures": {
                         "1": {
-                            "name": "entity.name.function.bsl"
+                            "name": "punctuation.accessor.bsl"
                         },
                         "2": {
+                            "name": "entity.name.function.bsl"
+                        },
+                        "3": {
                             "name": "punctuation.bracket.begin.bsl"
                         }
                     },
@@ -670,6 +676,14 @@
                 {
                     "name": "variable.parameter.bsl",
                     "match": "(?i:[a-zа-яё0-9_]+)"
+                }
+            ]
+        },
+        "stringPatternParameter": {
+            "patterns": [
+                {
+                    "match": "%[0-9]+",
+                    "name": "variable.parameter.bsl"
                 }
             ]
         }
