@@ -324,10 +324,16 @@
                     },
                     "patterns": [
                         {
-                            "include": "#basic"
+                            "include": "#objectDefinition"
                         },
                         {
                             "include": "#blockEntities"
+                        },
+                        {
+                            "include": "#basic"
+                        },
+                        {
+                            "include": "#keywordOperators"
                         }
                     ]
                 }
@@ -596,13 +602,13 @@
                     },
                     "patterns": [
                         {
-                            "include": "#basic"
-                        },
-                        {
-                            "include": "#keywordOperators"
+                            "include": "#miscellaneous"
                         },
                         {
                             "include": "#blockEntities"
+                        },
+                        {
+                            "include": "#basic"
                         }
                     ]
                 }
@@ -636,6 +642,12 @@
             "patterns": [
                 {
                     "include": "#annotations"
+                },
+                {
+                    "include": "#miscellaneous"
+                },
+                {
+                    "include": "#blockEntities"
                 },
                 {
                     "include": "#basic"
