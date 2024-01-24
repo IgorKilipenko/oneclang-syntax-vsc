@@ -29,6 +29,9 @@
             "include": "#properties"
         },
         {
+            "include": "#codeBlock"
+        },
+        {
             "include": "#virtualTable"
         },
         {
@@ -197,6 +200,12 @@
                             "include": "#parameters"
                         },
                         {
+                            "include": "#supportFunctions"
+                        },
+                        {
+                            "include": "#tableTypes"
+                        },
+                        {
                             "include": "#functions"
                         },
                         {
@@ -204,6 +213,48 @@
                         },
                         {
                             "include": "#variables"
+                        }
+                    ]
+                }
+            ]
+        },
+        "codeBlock": {
+            "patterns": [
+                {
+                    "begin": "(\\()",
+                    "beginCaptures": {
+                        "name": "punctuation.bracket.begin.sdbl"
+                    },
+                    "end": "(\\))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.bracket.end.sdbl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#basic"
+                        },
+                        {
+                            "include": "#parameters"
+                        },
+                        {
+                            "include": "#supportFunctions"
+                        },
+                        {
+                            "include": "#tableTypes"
+                        },
+                        {
+                            "include": "#functions"
+                        },
+                        {
+                            "include": "#properties"
+                        },
+                        {
+                            "include": "#variables"
+                        },
+                        {
+                            "include": "#codeBlock"
                         }
                     ]
                 }
@@ -235,7 +286,7 @@
         "registerTable": {
             "patterns": [
                 {
-                    "match": "(?i:)(?<=\\s+|\\|)Регистр(?:Накопления|Сведений|Бухгалтерии)(?=\\s+|\\.)",
+                    "match": "(?i:)(?<=\\s+|\\||\\[|\\()Регистр(?:Накопления|Сведений|Бухгалтерии)(?=\\s+|\\.)",
                     "name": "support.type.sdbl"
                 }
             ]
@@ -243,7 +294,7 @@
         "tableTypes": {
             "patterns": [
                 {
-                    "match": "(?i:)(?<=\\s+|\\|)(Документ|Справочник)(?=\\s+|\\.)",
+                    "match": "(?i:)(?<=\\s+|\\||\\[|\\()(Документ|Справочник)(?=\\s+|\\.)",
                     "name": "support.type.sdbl"
                 },
                 {
