@@ -166,6 +166,9 @@
                 },
                 {
                     "include": "#supportEnums"
+                },
+                {
+                    "include": "#supportTypes"
                 }
             ]
         },
@@ -692,6 +695,14 @@
                 },
                 {
                     "match": "(?i:)(?!(?:\\.\\)\\])\\s*)\\b(ВидДвиженияНакопления)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                }
+            ]
+        },
+        "supportTypes": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?!(?:\\.\\)\\])\\s*)\\b(Движения)\\b(?=\\s*\\.)",
                     "name": "support.class.bsl"
                 }
             ]
