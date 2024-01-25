@@ -17,7 +17,7 @@
             "include": "#types"
         },
         {
-            "include": "#tableTypes"
+            "include": "#Table"
         },
         {
             "include": "#parameters"
@@ -203,13 +203,16 @@
                             "include": "#supportFunctions"
                         },
                         {
-                            "include": "#tableTypes"
+                            "include": "#Table"
                         },
                         {
                             "include": "#functions"
                         },
                         {
                             "include": "#properties"
+                        },
+                        {
+                            "include": "#virtualTable"
                         },
                         {
                             "include": "#variables"
@@ -242,13 +245,16 @@
                             "include": "#supportFunctions"
                         },
                         {
-                            "include": "#tableTypes"
+                            "include": "#Table"
                         },
                         {
                             "include": "#functions"
                         },
                         {
                             "include": "#properties"
+                        },
+                        {
+                            "include": "#virtualTable"
                         },
                         {
                             "include": "#variables"
@@ -287,15 +293,15 @@
             "patterns": [
                 {
                     "match": "(?i:)(?<=\\s+|\\||\\[|\\()Регистр(?:Накопления|Сведений|Бухгалтерии)(?=\\s+|\\.)",
-                    "name": "support.type.sdbl"
+                    "name": "support.class.sdbl"
                 }
             ]
         },
-        "tableTypes": {
+        "supportTableClasses": {
             "patterns": [
                 {
-                    "match": "(?i:)(?<=\\s+|\\||\\[|\\()(Документ|Справочник)(?=\\s+|\\.)",
-                    "name": "support.type.sdbl"
+                    "match": "(?i:)(?<=\\s+|\\||\\[|\\()(Документ|Справочник|Перечисление)(?=\\s+|\\.)",
+                    "name": "support.class.sdbl"
                 },
                 {
                     "include": "#registerTable"
