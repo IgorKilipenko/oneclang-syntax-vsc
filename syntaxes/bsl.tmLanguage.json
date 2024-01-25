@@ -656,12 +656,6 @@
                     "include": "#basic"
                 },
                 {
-                    "include": "#miscellaneous"
-                },
-                {
-                    "include": "#blockEntities"
-                },
-                {
                     "name": "storage.modifier.bsl",
                     "match": "(?i:(?<=[^\\wа-яё\\.]|^)(Знач|Val)(?=[^\\wа-яё\\.]|$))"
                 },
@@ -672,6 +666,12 @@
                 {
                     "name": "invalid.illegal.bsl",
                     "match": "(?<=[^\\wа-яё\\.]|^)((?<==\\s)\\s*(?i)[a-zа-яё0-9_]+)(?=[^\\wа-яё\\.]|$)"
+                },
+                {
+                    "include": "#miscellaneous"
+                },
+                {
+                    "include": "#blockEntities"
                 },
                 {
                     "name": "variable.parameter.bsl",
