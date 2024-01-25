@@ -168,7 +168,10 @@
                     "include": "#supportEnums"
                 },
                 {
-                    "include": "#supportTypes"
+                    "include": "#supportClasses"
+                },
+                {
+                    "include": "#supportValueTypes"
                 }
             ]
         },
@@ -205,6 +208,9 @@
                     "name": "comment.line.double-slash.bsl",
                     "begin": "//",
                     "end": "$"
+                },
+                {
+                    "include": "#stringSupportValues"
                 },
                 {
                     "name": "string.quoted.double.bsl",
@@ -690,22 +696,71 @@
         "supportEnums": {
             "patterns": [
                 {
-                    "match": "(?i:)(?!(?:\\.\\)\\])\\s*)\\b(ОбходРезультатаЗапроса)\\b(?=\\s*\\.)",
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ОбходРезультатаЗапроса)\\b(?=\\s*\\.)",
                     "name": "support.class.bsl"
                 },
                 {
-                    "match": "(?i:)(?!(?:\\.\\)\\])\\s*)\\b(ВидДвиженияНакопления)\\b(?=\\s*\\.)",
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ВидДвиженияНакопления)\\b(?=\\s*\\.)",
                     "name": "support.class.bsl"
                 }
             ]
         },
-        "supportTypes": {
+        "supportClasses": {
             "patterns": [
                 {
-                    "match": "(?i:)(?!(?:\\.\\)\\])\\s*)\\b(Движения)\\b(?=\\s*\\.)",
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Движения)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Перечисления)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                },
+                {
+                    "include": "#supportRegisterTable"
+                }
+            ]
+        },
+        "supportRegisterTable": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Регистры(?:Накопления|Сведений|Бухгалтерии))\\b(?=\\s*\\.)",
                     "name": "support.class.bsl"
                 }
             ]
+        },
+        "stringSupportValues": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.bsl",
+                    "begin": "(?i:)(?<=\\b(?:Значение|Добавить|Тип)\\s*\\(\\s*)\\\"",
+                    "end": "\\\"(?!\\\")",
+                    "patterns": [
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Документ|Справочник|Перечисление)\\b(?=\\s*\\.)",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\bРегистр(?:Накопления|Сведений|Бухгалтерии)(?=\\s+|\\.)",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ДокументСсылка|СправочникСсылка)\\b(?=\\s*\\.|\\\")",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=\\\")",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "include": "#blockObjects"
+                        }
+                    ]
+                }
+            ]
+        },
+        "supportValueTypes" : {
+            "match": "\\b(?i:Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b",
+            "name": "support.type.bsl"
         }
     }
 }
