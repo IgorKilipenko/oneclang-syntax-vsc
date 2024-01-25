@@ -163,6 +163,9 @@
                 },
                 {
                     "include": "#supportFunctions"
+                },
+                {
+                    "include": "#supportEnums"
                 }
             ]
         },
@@ -330,16 +333,13 @@
                     },
                     "patterns": [
                         {
-                            "include": "#objectDefinition"
-                        },
-                        {
-                            "include": "#blockEntities"
-                        },
-                        {
                             "include": "#basic"
                         },
                         {
-                            "include": "#keywordOperators"
+                            "include": "#miscellaneous"
+                        },
+                        {
+                            "include": "#blockEntities"
                         }
                     ]
                 }
@@ -650,16 +650,13 @@
                     "include": "#annotations"
                 },
                 {
+                    "include": "#basic"
+                },
+                {
                     "include": "#miscellaneous"
                 },
                 {
                     "include": "#blockEntities"
-                },
-                {
-                    "include": "#basic"
-                },
-                {
-                    "include": "#keywordOperators"
                 },
                 {
                     "name": "storage.modifier.bsl",
@@ -684,6 +681,14 @@
                 {
                     "match": "%[0-9]+",
                     "name": "variable.parameter.bsl"
+                }
+            ]
+        },
+        "supportEnums": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?!(?:\\.\\)\\])\\s*)\\b(ОбходРезультатаЗапроса)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
                 }
             ]
         }
