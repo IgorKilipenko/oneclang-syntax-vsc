@@ -213,9 +213,18 @@
                     "include": "#stringSupportValues"
                 },
                 {
-                    "name": "string.quoted.double.bsl",
-                    "begin": "\\\"",
-                    "end": "\\\"(?![\\\"])",
+                    "begin": "(\\\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "end": "(\\\")(?![\\\"])",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
                     "patterns": [
                         {
                             "include": "#query"
@@ -230,6 +239,10 @@
                         },
                         {
                             "include": "#stringPatternParameter"
+                        },
+                        {
+                            "match": "[^\\\"]",
+                            "name": "string.quoted.double.bsl"
                         }
                     ]
                 },
@@ -732,7 +745,7 @@
             "patterns": [
                 {
                     "name": "string.quoted.double.bsl",
-                    "begin": "(?i:)(?<=\\b(?:Значение|Добавить|Тип)\\s*\\(\\s*)\\\"",
+                    "begin": "(?i:)(?<=\\b(?:ПредопределенноеЗначение|Добавить|Тип)\\s*\\(\\s*)\\\"",
                     "end": "\\\"(?!\\\")",
                     "patterns": [
                         {
