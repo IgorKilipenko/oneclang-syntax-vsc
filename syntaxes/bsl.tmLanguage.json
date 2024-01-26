@@ -744,9 +744,18 @@
         "stringSupportValues": {
             "patterns": [
                 {
-                    "name": "string.quoted.double.bsl",
-                    "begin": "(?i:)(?<=\\b(?:ПредопределенноеЗначение|Добавить|Тип)\\s*\\(\\s*)\\\"",
-                    "end": "\\\"(?!\\\")",
+                    "begin": "(?i:)(?<=\\b(?:ПредопределенноеЗначение|Добавить|Тип)\\s*\\(\\s*)(\\\")(?!\\s*\\\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
                     "patterns": [
                         {
                             "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Документ|Справочник|Перечисление)\\b(?=\\s*\\.)",
@@ -768,10 +777,120 @@
                             "include": "#blockObjects"
                         }
                     ]
+                },
+                {
+                    "begin": "(?i:)(\\\")(Документ|Справочник|Перечисление)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        },
+                        "2": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjects"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\bРегистр(?:Накопления|Сведений|Бухгалтерии)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        },
+                        "2": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjects"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ДокументСсылка|СправочникСсылка)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        },
+                        "2": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjects"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        },
+                        "2": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjects"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(СправочникСсылка|ДокументСсылка)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        },
+                        "2": {
+                            "name": "support.type.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjects"
+                        }
+                    ]
                 }
             ]
         },
-        "supportValueTypes" : {
+        "supportValueTypes": {
             "match": "\\b(?i:Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b",
             "name": "support.type.bsl"
         }
