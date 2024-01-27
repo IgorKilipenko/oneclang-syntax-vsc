@@ -172,6 +172,9 @@
                 },
                 {
                     "include": "#supportValueTypes"
+                },
+                {
+                    "include": "#supportLanguageConstant"
                 }
             ]
         },
@@ -213,38 +216,7 @@
                     "include": "#stringSupportValues"
                 },
                 {
-                    "begin": "(\\\")",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        }
-                    },
-                    "end": "(\\\")(?![\\\"])",
-                    "endCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#query"
-                        },
-                        {
-                            "name": "constant.character.escape.bsl",
-                            "match": "\\\"\\\""
-                        },
-                        {
-                            "name": "comment.line.double-slash.bsl",
-                            "match": "(^\\s*//.*$)"
-                        },
-                        {
-                            "include": "#stringPatternParameter"
-                        },
-                        {
-                            "match": "[^\\\"]",
-                            "name": "string.quoted.double.bsl"
-                        }
-                    ]
+                    "include": "#quotedString"
                 },
                 {
                     "name": "constant.language.bsl",
@@ -715,6 +687,10 @@
                 {
                     "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ВидДвиженияНакопления)\\b(?=\\s*\\.)",
                     "name": "support.class.bsl"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(РежимДиалогаВопрос)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
                 }
             ]
         },
@@ -733,6 +709,14 @@
                 }
             ]
         },
+        "supportLanguageConstant": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ЭтотОбъект|ЭтаФорма)\\b",
+                    "name": "constant.language.bsl"
+                }
+            ]
+        },
         "supportRegisterTable": {
             "patterns": [
                 {
@@ -744,7 +728,7 @@
         "stringSupportValues": {
             "patterns": [
                 {
-                    "begin": "(?i:)(?<=\\b(?:ПредопределенноеЗначение|Добавить|Тип)\\s*\\(\\s*)(\\\")(?!\\s*\\\")",
+                    "begin": "(?i:)(?<=\\b(?:ПредопределенноеЗначение|Тип)\\s*\\(\\s*)(\\\")(?!\\s*\\\")",
                     "beginCaptures": {
                         "1": {
                             "name": "string.quoted.double.bsl"
@@ -845,7 +829,7 @@
                     ]
                 },
                 {
-                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=\\s*\\\")",
                     "beginCaptures": {
                         "1": {
                             "name": "string.quoted.double.bsl"
@@ -893,6 +877,47 @@
         "supportValueTypes": {
             "match": "\\b(?i:Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b",
             "name": "support.type.bsl"
+        },
+        "quotedString": {
+            "begin": "(\\\")",
+            "beginCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "end": "(\\\")(?![\\\"])",
+            "endCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#quotedStringBody"
+                }
+            ]
+        },
+        "quotedStringBody": {
+            "patterns": [
+                {
+                    "include": "#query"
+                },
+                {
+                    "name": "constant.character.escape.bsl",
+                    "match": "\\\"\\\""
+                },
+                {
+                    "name": "comment.line.double-slash.bsl",
+                    "match": "(^\\s*//.*$)"
+                },
+                {
+                    "include": "#stringPatternParameter"
+                },
+                {
+                    "match": "[^\\\"]",
+                    "name": "string.quoted.double.bsl"
+                }
+            ]
         }
     }
 }
