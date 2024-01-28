@@ -767,6 +767,26 @@
                     ]
                 },
                 {
+                    "begin": "(?i:)(?<=\\b(?:ОписаниеОповещения)\\s*\\(\\s*)(\\\")(?!\\s*\\\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "match": "(?<=\\(\\s*\\\")\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=\\\")",
+                            "name": "entity.name.function.bsl"
+                        }
+                    ]
+                },
+                {
                     "begin": "(?i:)(\\\")(Документ|Справочник|Перечисление)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
                     "beginCaptures": {
                         "1": {
