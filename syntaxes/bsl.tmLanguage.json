@@ -767,6 +767,7 @@
                     ]
                 },
                 {
+                    "comment": "function callback arguments inline",
                     "begin": "(?i:)(?<=\\b(?:ОписаниеОповещения)\\s*\\(\\s*)(\\\")(?!\\s*\\\")",
                     "beginCaptures": {
                         "1": {
@@ -782,6 +783,26 @@
                     "patterns": [
                         {
                             "match": "(?<=\\(\\s*\\\")\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=\\\")",
+                            "name": "entity.name.function.bsl"
+                        }
+                    ]
+                },
+                {
+                    "comment": "function callback arguments in next line",
+                    "begin": "(?i:)(?<=\\b(?:ОписаниеОповещения)\\b\\s*\\(\\s*)$",
+                    "end": "(?<=\\S)(\\\")(?!\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "match": "(?<=^\\s*)\\\"(?!\\s*\\\")",
+                            "name": "string.quoted.double.bsl"
+                        },
+                        {
+                            "match": "(?<=^\\s*\\\")\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=\\\")",
                             "name": "entity.name.function.bsl"
                         }
                     ]
