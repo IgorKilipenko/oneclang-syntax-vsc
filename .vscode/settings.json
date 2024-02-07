@@ -9,7 +9,8 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": [
         "alnum",
-        "sdbl"
+        "sdbl",
+        "Асинх"
     ],
     "files.associations": {
         "package.json": "json"
