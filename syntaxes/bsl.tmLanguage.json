@@ -565,6 +565,11 @@
                     "comment": "Глобальный контекст - Свойства (переменные)",
                     "name": "support.variable.bsl",
                     "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nГлавныйИнтерфейс|MainInterface|\nГлавныйСтиль|MainStyle|\nПараметрЗапуска|LaunchParameter|\nРабочаяДата|WorkingDate|\nХранилищеВариантовОтчетов|ReportsVariantsStorage|\nХранилищеНастроекДанныхФорм|FormDataSettingsStorage|\nХранилищеОбщихНастроек|CommonSettingsStorage|\nХранилищеПользовательскихНастроекДинамическихСписков|DynamicListsUserSettingsStorage|\nХранилищеПользовательскихНастроекОтчетов|ReportsUserSettingsStorage|\nХранилищеСистемныхНастроек|SystemSettingsStorage\n)(?=[^\\wа-яё]|$))"
+                },
+                {
+                    "comment": "Async support functions",
+                    "name": "support.function.bsl",
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ВвестиДатуАсинх|ВопросАсинх)"
                 }
             ]
         },
