@@ -213,6 +213,12 @@
                     "end": "$"
                 },
                 {
+                    "include": "#stringWithSingleSupportObject"
+                },
+                {
+                    "include": "#stringWithSingleSupportValue"
+                },
+                {
                     "include": "#stringSupportValues"
                 },
                 {
@@ -568,11 +574,6 @@
                     "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ПередНачаломРаботыСистемы|BeforeStart|ПриНачалеРаботыСистемы|OnStart|ПередЗавершениемРаботыСистемы|BeforeExit|ПриЗавершенииРаботыСистемы|OnExit|ОбработкаВнешнегоСобытия|ExternEventProcessing|УстановкаПараметровСеанса|SessionParametersSetting|ПриИзмененииПараметровЭкрана|OnChangeDisplaySettings\n)\\s*(?=\\())"
                 },
                 {
-                    "comment": "Глобальный контекст - Свойства (классы)",
-                    "name": "support.class.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(WSСсылки|WSReferences|БиблиотекаКартинок|PictureLib|БиблиотекаМакетовОформленияКомпоновкиДанных|DataCompositionAppearanceTemplateLib|БиблиотекаСтилей|StyleLib|БизнесПроцессы|BusinessProcesses|ВнешниеИсточникиДанных|ExternalDataSources|ВнешниеОбработки|ExternalDataProcessors|ВнешниеОтчеты|ExternalReports|Документы|Documents|ДоставляемыеУведомления|DeliverableNotifications|ЖурналыДокументов|DocumentJournals|Задачи|Tasks|ИнформацияОбИнтернетСоединении|InternetConnectionInformation|ИспользованиеРабочейДаты|WorkingDateUse|ИсторияРаботыПользователя|UserWorkHistory|Константы|Constants|КритерииОтбора|FilterCriteria|Метаданные|Metadata|Обработки|DataProcessors|ОтправкаДоставляемыхУведомлений|DeliverableNotificationSend|Отчеты|Reports|ПараметрыСеанса|SessionParameters|Перечисления|Enums|ПланыВидовРасчета|ChartsOfCalculationTypes|ПланыВидовХарактеристик|ChartsOfCharacteristicTypes|ПланыОбмена|ExchangePlans|ПланыСчетов|ChartsOfAccounts|ПолнотекстовыйПоиск|FullTextSearch|ПользователиИнформационнойБазы|InfoBaseUsers|Последовательности|Sequences|РасширенияКонфигурации|ConfigurationExtensions|РегистрыБухгалтерии|AccountingRegisters|РегистрыНакопления|AccumulationRegisters|РегистрыРасчета|CalculationRegisters|РегистрыСведений|InformationRegisters|РегламентныеЗадания|ScheduledJobs|СериализаторXDTO|XDTOSerializer|Справочники|Catalogs|СредстваГеопозиционирования|LocationTools|СредстваКриптографии|CryptoToolsManager|СредстваМультимедиа|MultimediaTools|СредстваОтображенияРекламы|AdvertisingPresentationTools|СредстваПочты|MailTools|СредстваТелефонии|TelephonyTools|ФабрикаXDTO|XDTOFactory|ФайловыеПотоки|FileStreams|ФоновыеЗадания|BackgroundJobs|ХранилищаНастроек|SettingsStorages|ВстроенныеПокупки|InAppPurchases|ОтображениеРекламы|AdRepresentation|ПанельЗадачОС|OSTaskbar|ПроверкаВстроенныхПокупок|InAppPurchasesValidation\n)(?=[^\\wа-яё]|$))"
-                },
-                {
                     "comment": "Глобальный контекст - Свойства (переменные)",
                     "name": "support.variable.bsl",
                     "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ГлавныйИнтерфейс|MainInterface|ГлавныйСтиль|MainStyle|ПараметрЗапуска|LaunchParameter|РабочаяДата|WorkingDate|ХранилищеВариантовОтчетов|ReportsVariantsStorage|ХранилищеНастроекДанныхФорм|FormDataSettingsStorage|ХранилищеОбщихНастроек|CommonSettingsStorage|ХранилищеПользовательскихНастроекДинамическихСписков|DynamicListsUserSettingsStorage|ХранилищеПользовательскихНастроекОтчетов|ReportsUserSettingsStorage|ХранилищеСистемныхНастроек|SystemSettingsStorage\n)(?=[^\\wа-яё]|$))"
@@ -726,6 +727,10 @@
                 },
                 {
                     "include": "#supportRegisterTable"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(WSСсылки|WSReferences|БиблиотекаКартинок|PictureLib|БиблиотекаМакетовОформленияКомпоновкиДанных|DataCompositionAppearanceTemplateLib|БиблиотекаСтилей|StyleLib|БизнесПроцессы|BusinessProcesses|ВнешниеИсточникиДанных|ExternalDataSources|ВнешниеОбработки|ExternalDataProcessors|ВнешниеОтчеты|ExternalReports|Документы|Documents|ДоставляемыеУведомления|DeliverableNotifications|ЖурналыДокументов|DocumentJournals|Задачи|Tasks|ИнформацияОбИнтернетСоединении|InternetConnectionInformation|ИспользованиеРабочейДаты|WorkingDateUse|ИсторияРаботыПользователя|UserWorkHistory|Константы|Constants|КритерииОтбора|FilterCriteria|Метаданные|Metadata|Обработки|DataProcessors|ОтправкаДоставляемыхУведомлений|DeliverableNotificationSend|Отчеты|Reports|ПараметрыСеанса|SessionParameters|Перечисления|Enums|ПланыВидовРасчета|ChartsOfCalculationTypes|ПланыВидовХарактеристик|ChartsOfCharacteristicTypes|ПланыОбмена|ExchangePlans|ПланыСчетов|ChartsOfAccounts|ПолнотекстовыйПоиск|FullTextSearch|ПользователиИнформационнойБазы|InfoBaseUsers|Последовательности|Sequences|РасширенияКонфигурации|ConfigurationExtensions|РегистрыБухгалтерии|AccountingRegisters|РегистрыНакопления|AccumulationRegisters|РегистрыРасчета|CalculationRegisters|РегистрыСведений|InformationRegisters|РегламентныеЗадания|ScheduledJobs|СериализаторXDTO|XDTOSerializer|Справочники|Catalogs|СредстваГеопозиционирования|LocationTools|СредстваКриптографии|CryptoToolsManager|СредстваМультимедиа|MultimediaTools|СредстваОтображенияРекламы|AdvertisingPresentationTools|СредстваПочты|MailTools|СредстваТелефонии|TelephonyTools|ФабрикаXDTO|XDTOFactory|ФайловыеПотоки|FileStreams|ФоновыеЗадания|BackgroundJobs|ХранилищаНастроек|SettingsStorages|ВстроенныеПокупки|InAppPurchases|ОтображениеРекламы|AdRepresentation|ПанельЗадачОС|OSTaskbar|ПроверкаВстроенныхПокупок|InAppPurchasesValidation)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
                 }
             ]
         },
@@ -848,94 +853,6 @@
                             "include": "#blockObjectProperties"
                         }
                     ]
-                },
-                {
-                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\bРегистр(?:Накопления|Сведений|Бухгалтерии)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        },
-                        "2": {
-                            "name": "support.class.bsl"
-                        }
-                    },
-                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
-                    "endCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#blockObjectProperties"
-                        }
-                    ]
-                },
-                {
-                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ДокументСсылка|СправочникСсылка)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        },
-                        "2": {
-                            "name": "support.class.bsl"
-                        }
-                    },
-                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
-                    "endCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#blockObjectProperties"
-                        }
-                    ]
-                },
-                {
-                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=\\s*\\\")",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        },
-                        "2": {
-                            "name": "support.class.bsl"
-                        }
-                    },
-                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
-                    "endCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#blockObjectProperties"
-                        }
-                    ]
-                },
-                {
-                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(СправочникСсылка|ДокументСсылка)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        },
-                        "2": {
-                            "name": "support.type.bsl"
-                        }
-                    },
-                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
-                    "endCaptures": {
-                        "1": {
-                            "name": "string.quoted.double.bsl"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#blockObjectProperties"
-                        }
-                    ]
                 }
             ]
         },
@@ -981,6 +898,100 @@
                 {
                     "match": "[^\\\"]",
                     "name": "string.quoted.double.bsl"
+                }
+            ]
+        },
+        "stringWithSingleSupportObject": {
+            "begin": "(?<!\\\"\\s*)(\\\")(?=[_$[:alpha:]][_$[:alnum:]]*(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+\\\")(?!\\s*\\\")",
+            "beginCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+            "endCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Регистр(?:Накопления|Сведений|Бухгалтерии))\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "captures": {
+                        "1": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjectProperties"
+                        }
+                    ]
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ДокументСсылка|СправочникСсылка)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "captures": {
+                        "1": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjectProperties"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(СправочникСсылка|ДокументСсылка)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        },
+                        "2": {
+                            "name": "support.type.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjectProperties"
+                        },
+                        {
+                            "include": "#quotedStringBody"
+                        }
+                    ]
+                }
+            ]
+        },
+        "stringWithSingleSupportValue": {
+            "begin": "(?<!\\\"\\s*)(\\\")(?=[_$[:alpha:]][_$[:alnum:]]*\\\")(?!\\s*\\\")",
+            "beginCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+            "endCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=\\s*\\\")",
+                    "captures": {
+                        "1": {
+                            "name": "support.class.bsl"
+                        }
+                    }
+                },
+                {
+                    "include": "#quotedStringBody"
                 }
             ]
         }
