@@ -848,19 +848,23 @@
         "stringWithSingleSupportValue": {
             "patterns": [
                 {
-                    "begin": "(?i:)(?<=\\b(?:ПредопределенноеЗначение|Тип)\\s*\\(\\s*)(\\\")(?!\\s*\\\")",
+                    "begin": "(?i:)(?<=\\b(?:ПредопределенноеЗначение|Тип)\\s*\\(\\s*)((?:\\\"|$))(?!\\s*\\\")",
                     "beginCaptures": {
                         "1": {
                             "name": "string.quoted.double.bsl"
                         }
                     },
-                    "end": "(?<!\\\"\\s*)(\\\")(?!\\\")",
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\\")(?=\\))",
                     "endCaptures": {
                         "1": {
                             "name": "string.quoted.double.bsl"
                         }
                     },
                     "patterns": [
+                        {
+                            "match": "(?<=^\\s*)\\\"(?!\\s*\\\")",
+                            "name": "string.quoted.double.bsl"
+                        },
                         {
                             "include": "#_stringInnerSupports"
                         }
