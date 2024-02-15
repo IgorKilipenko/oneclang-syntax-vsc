@@ -48,5 +48,35 @@
                 "package-pre-release"
             ],
         },
+        {
+            "label": "package",
+            "hide": true,
+            "type": "shell",
+            "command": "vsce",
+            "args": [
+                "package"
+            ],
+            "presentation": {
+                "reveal": "silent",
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "publish",
+            "type": "shell",
+            "command": "vsce",
+            "args": [
+                "publish",
+                "--skip-duplicate"
+            ],
+            "presentation": {
+                "reveal": "always",
+            },
+            "dependsOn": [
+                "package"
+            ],
+        },
     ]
 }

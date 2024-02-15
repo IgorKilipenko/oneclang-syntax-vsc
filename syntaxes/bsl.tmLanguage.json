@@ -163,6 +163,18 @@
                 },
                 {
                     "include": "#supportFunctions"
+                },
+                {
+                    "include": "#supportEnums"
+                },
+                {
+                    "include": "#supportClasses"
+                },
+                {
+                    "include": "#supportValueTypes"
+                },
+                {
+                    "include": "#supportLanguageConstant"
                 }
             ]
         },
@@ -201,22 +213,16 @@
                     "end": "$"
                 },
                 {
-                    "name": "string.quoted.double.bsl",
-                    "begin": "\\\"",
-                    "end": "\\\"(?![\\\"])",
-                    "patterns": [
-                        {
-                            "include": "#query"
-                        },
-                        {
-                            "name": "constant.character.escape.bsl",
-                            "match": "\\\"\\\""
-                        },
-                        {
-                            "name": "comment.line.double-slash.bsl",
-                            "match": "(^\\s*//.*$)"
-                        }
-                    ]
+                    "include": "#stringWithSingleSupportObject"
+                },
+                {
+                    "include": "#stringWithSingleSupportValue"
+                },
+                {
+                    "include": "#stringSupportValues"
+                },
+                {
+                    "include": "#quotedString"
                 },
                 {
                     "name": "constant.language.bsl",
@@ -307,12 +313,15 @@
         "blockFunctions": {
             "patterns": [
                 {
-                    "begin": "(?<!(?i:Новый|New)\\s+)\\b([_$[:alpha:]][_$[:alnum:]]*\\b)(?:\\s*)(\\()\\s*",
+                    "begin": "(?<!(?i:Новый|New)\\s+)(?:\\s*(\\.)\\s*)?\\b([_$[:alpha:]][_$[:alnum:]]*\\b)(?:\\s*)(\\()\\s*",
                     "beginCaptures": {
                         "1": {
-                            "name": "entity.name.function.bsl"
+                            "name": "punctuation.accessor.bsl"
                         },
                         "2": {
+                            "name": "entity.name.function.bsl"
+                        },
+                        "3": {
                             "name": "punctuation.bracket.begin.bsl"
                         }
                     },
@@ -327,14 +336,28 @@
                             "include": "#basic"
                         },
                         {
+                            "include": "#miscellaneous"
+                        },
+                        {
                             "include": "#blockEntities"
                         }
                     ]
                 }
             ]
         },
-        "blockObjects": {
+        "blockObjectProperties": {
             "patterns": [
+                {
+                    "match": "(?<=(?i:Метаданные)\\s*)(\\.)(?:\\s*)(РежимСовместимости|СвойстваОбъектов)(?:\\s*)(?!\\s*\\()",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.accessor.bsl"
+                        },
+                        "2": {
+                            "name": "support.constant.bsl"
+                        }
+                    }
+                },
                 {
                     "match": "(?<=(?:\\b[_$[:alpha:]][_$[:alnum:]]*\\s*)|(?:[\\s\\]]*))(\\.)(?:\\s*)([_$[:alpha:]][_$[:alnum:]]*\\b)(?:\\s*)(?=[\\[]?)(?!\\s*\\()",
                     "captures": {
@@ -391,7 +414,7 @@
                     "include": "#blockFunctions"
                 },
                 {
-                    "include": "#blockObjects"
+                    "include": "#blockObjectProperties"
                 },
                 {
                     "include": "#blockVariables"
@@ -423,17 +446,17 @@
                 {
                     "comment": "Глобальный контекст - функции работы со значениями типа Строка",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nСтрДлина|StrLen|\nСокрЛ|TrimL|\nСокрП|TrimR|\nСокрЛП|TrimAll|\nЛев|Left|\nПрав|Right|\nСред|Mid|\nСтрНайти|StrFind|\nВРег|Upper|\nНРег|Lower|\nТРег|Title|\nСимвол|Char|\nКодСимвола|CharCode|\nПустаяСтрока|IsBlankString|\nСтрЗаменить|StrReplace|\nСтрЧислоСтрок|StrLineCount|\nСтрПолучитьСтроку|StrGetLine|\nСтрЧислоВхождений|StrOccurrenceCount|\nСтрСравнить|StrCompare|\nСтрНачинаетсяС|StrStartWith|\nСтрЗаканчиваетсяНа|StrEndsWith|\nСтрРазделить|StrSplit|\nСтрСоединить|StrConcat\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(СтрДлина|StrLen|СокрЛ|TrimL|СокрП|TrimR|СокрЛП|TrimAll|Лев|Left|Прав|Right|Сред|Mid|СтрНайти|StrFind|ВРег|Upper|НРег|Lower|ТРег|Title|Символ|Char|КодСимвола|CharCode|ПустаяСтрока|IsBlankString|СтрЗаменить|StrReplace|СтрЧислоСтрок|StrLineCount|СтрПолучитьСтроку|StrGetLine|СтрЧислоВхождений|StrOccurrenceCount|СтрСравнить|StrCompare|СтрНачинаетсяС|StrStartWith|СтрЗаканчиваетсяНа|StrEndsWith|СтрРазделить|StrSplit|СтрСоединить|StrConcat\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - функции работы со значениями типа Число",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nЦел|Int|\nОкр|Round|\nACos|\nASin|\nATan|\nCos|\nExp|\nLog|\nLog10|\nPow|\nSin|\nSqrt|\nTan\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(Цел|Int|Окр|Round|ACos|ASin|ATan|Cos|Exp|Log|Log10|Pow|Sin|Sqrt|Tan\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - функции работы со значениями типа Дата",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nГод|Year|\nМесяц|Month|\nДень|Day|\nЧас|Hour|\nМинута|Minute|\nСекунда|Second|\nНачалоГода|BegOfYear|\nНачалоДня|BegOfDay|\nНачалоКвартала|BegOfQuarter|\nНачалоМесяца|BegOfMonth|\nНачалоМинуты|BegOfMinute|\nНачалоНедели|BegOfWeek|\nНачалоЧаса|BegOfHour|\nКонецГода|EndOfYear|\nКонецДня|EndOfDay|\nКонецКвартала|EndOfQuarter|\nКонецМесяца|EndOfMonth|\nКонецМинуты|EndOfMinute|\nКонецНедели|EndOfWeek|\nКонецЧаса|EndOfHour|\nНеделяГода|WeekOfYear|\nДеньГода|DayOfYear|\nДеньНедели|WeekDay|\nТекущаяДата|CurrentDate|\nДобавитьМесяц|AddMonth\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(Год|Year|Месяц|Month|День|Day|Час|Hour|Минута|Minute|Секунда|Second|НачалоГода|BegOfYear|НачалоДня|BegOfDay|НачалоКвартала|BegOfQuarter|НачалоМесяца|BegOfMonth|НачалоМинуты|BegOfMinute|НачалоНедели|BegOfWeek|НачалоЧаса|BegOfHour|КонецГода|EndOfYear|КонецДня|EndOfDay|КонецКвартала|EndOfQuarter|КонецМесяца|EndOfMonth|КонецМинуты|EndOfMinute|КонецНедели|EndOfWeek|КонецЧаса|EndOfHour|НеделяГода|WeekOfYear|ДеньГода|DayOfYear|ДеньНедели|WeekDay|ТекущаяДата|CurrentDate|ДобавитьМесяц|AddMonth\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - функции работы со значениями типа Тип",
@@ -448,92 +471,92 @@
                 {
                     "comment": "Глобальный контекст - процедуры и функции интерактивной работы",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nПоказатьВопрос|ShowQueryBox|\nВопрос|DoQueryBox|\nПоказатьПредупреждение|ShowMessageBox|\nПредупреждение|DoMessageBox|\nСообщить|Message|\nОчиститьСообщения|ClearMessages|\nОповеститьОбИзменении|NotifyChanged|\nСостояние|Status|\nСигнал|Beep|\nПоказатьЗначение|ShowValue|\nОткрытьЗначение|OpenValue|\nОповестить|Notify|\nОбработкаПрерыванияПользователя|UserInterruptProcessing|\nОткрытьСодержаниеСправки|OpenHelpContent|\nОткрытьИндексСправки|OpenHelpIndex|\nОткрытьСправку|OpenHelp|\nПоказатьИнформациюОбОшибке|ShowErrorInfo|\nКраткоеПредставлениеОшибки|BriefErrorDescription|\nПодробноеПредставлениеОшибки|DetailErrorDescription|\nПолучитьФорму|GetForm|\nЗакрытьСправку|CloseHelp|\nПоказатьОповещениеПользователя|ShowUserNotification|\nОткрытьФорму|OpenForm|\nОткрытьФормуМодально|OpenFormModal|\nАктивноеОкно|ActiveWindow|\nВыполнитьОбработкуОповещения|ExecuteNotifyProcessing\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ПоказатьВопрос|ShowQueryBox|Вопрос|DoQueryBox|ПоказатьПредупреждение|ShowMessageBox|Предупреждение|DoMessageBox|Сообщить|Message|ОчиститьСообщения|ClearMessages|ОповеститьОбИзменении|NotifyChanged|Состояние|Status|Сигнал|Beep|ПоказатьЗначение|ShowValue|ОткрытьЗначение|OpenValue|Оповестить|Notify|ОбработкаПрерыванияПользователя|UserInterruptProcessing|ОткрытьСодержаниеСправки|OpenHelpContent|ОткрытьИндексСправки|OpenHelpIndex|ОткрытьСправку|OpenHelp|ПоказатьИнформациюОбОшибке|ShowErrorInfo|КраткоеПредставлениеОшибки|BriefErrorDescription|ПодробноеПредставлениеОшибки|DetailErrorDescription|ПолучитьФорму|GetForm|ЗакрытьСправку|CloseHelp|ПоказатьОповещениеПользователя|ShowUserNotification|ОткрытьФорму|OpenForm|ОткрытьФормуМодально|OpenFormModal|АктивноеОкно|ActiveWindow|ВыполнитьОбработкуОповещения|ExecuteNotifyProcessing\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - функции для вызова диалога ввода данных",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nПоказатьВводЗначения|ShowInputValue|\nВвестиЗначение|InputValue|\nПоказатьВводЧисла|ShowInputNumber|\nВвестиЧисло|InputNumber|\nПоказатьВводСтроки|ShowInputString|\nВвестиСтроку|InputString|\nПоказатьВводДаты|ShowInputDate|\nВвестиДату|InputDate\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ПоказатьВводЗначения|ShowInputValue|ВвестиЗначение|InputValue|ПоказатьВводЧисла|ShowInputNumber|ВвестиЧисло|InputNumber|ПоказатьВводСтроки|ShowInputString|ВвестиСтроку|InputString|ПоказатьВводДаты|ShowInputDate|ВвестиДату|InputDate\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - функции форматирования",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nФормат|Format|\nЧислоПрописью|NumberInWords|\nНСтр|NStr|\nПредставлениеПериода|PeriodPresentation|\nСтрШаблон|StrTemplate\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(Формат|Format|ЧислоПрописью|NumberInWords|НСтр|NStr|ПредставлениеПериода|PeriodPresentation|СтрШаблон|StrTemplate\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - функции обращения к конфигурации",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nПолучитьОбщийМакет|GetCommonTemplate|\nПолучитьОбщуюФорму|GetCommonForm|\nПредопределенноеЗначение|PredefinedValue|\nПолучитьПолноеИмяПредопределенногоЗначения|GetPredefinedValueFullName\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ПолучитьОбщийМакет|GetCommonTemplate|ПолучитьОбщуюФорму|GetCommonForm|ПредопределенноеЗначение|PredefinedValue|ПолучитьПолноеИмяПредопределенногоЗначения|GetPredefinedValueFullName\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - процедуры и функции сеанса работы",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nПолучитьЗаголовокСистемы|GetCaption|\nПолучитьСкоростьКлиентскогоСоединения|GetClientConnectionSpeed|\nПодключитьОбработчикОжидания|AttachIdleHandler|\nУстановитьЗаголовокСистемы|SetCaption|\nОтключитьОбработчикОжидания|DetachIdleHandler|\nИмяКомпьютера|ComputerName|\nЗавершитьРаботуСистемы|Exit|\nИмяПользователя|UserName|\nПрекратитьРаботуСистемы|Terminate|\nПолноеИмяПользователя|UserFullName|\nЗаблокироватьРаботуПользователя|LockApplication|\nКаталогПрограммы|BinDir|\nКаталогВременныхФайлов|TempFilesDir|\nПравоДоступа|AccessRight|\nРольДоступна|IsInRole|\nТекущийЯзык|CurrentLanguage|\nТекущийКодЛокализации|CurrentLocaleCode|\nСтрокаСоединенияИнформационнойБазы|InfoBaseConnectionString|\nПодключитьОбработчикОповещения|AttachNotificationHandler|\nОтключитьОбработчикОповещения|DetachNotificationHandler|\nПолучитьСообщенияПользователю|GetUserMessages|\nПараметрыДоступа|AccessParameters|\nПредставлениеПриложения|ApplicationPresentation|\nТекущийЯзыкСистемы|CurrentSystemLanguage|\nЗапуститьСистему|RunSystem|\nТекущийРежимЗапуска|CurrentRunMode|\nУстановитьЧасовойПоясСеанса|SetSessionTimeZone|\nЧасовойПоясСеанса|SessionTimeZone|\nТекущаяДатаСеанса|CurrentSessionDate|\nУстановитьКраткийЗаголовокПриложения|SetShortApplicationCaption|\nПолучитьКраткийЗаголовокПриложения|GetShortApplicationCaption|\nПредставлениеПрава|RightPresentation|\nВыполнитьПроверкуПравДоступа|VerifyAccessRights|\nРабочийКаталогДанныхПользователя|UserDataWorkDir|\nКаталогДокументов|DocumentsDir|\nПолучитьИнформациюЭкрановКлиента|GetClientDisplaysInformation|\nТекущийВариантОсновногоШрифтаКлиентскогоПриложения|ClientApplicationBaseFontCurrentVariant|\nТекущийВариантИнтерфейсаКлиентскогоПриложения|ClientApplicationInterfaceCurrentVariant|\nУстановитьЗаголовокКлиентскогоПриложения|SetClientApplicationCaption|\nПолучитьЗаголовокКлиентскогоПриложения|GetClientApplicationCaption|\nНачатьПолучениеКаталогаВременныхФайлов|BeginGettingTempFilesDir|\nНачатьПолучениеКаталогаДокументов|BeginGettingDocumentsDir|\nНачатьПолучениеРабочегоКаталогаДанныхПользователя|BeginGettingUserDataWorkDir|\nПодключитьОбработчикЗапросаНастроекКлиентаЛицензирования|AttachLicensingClientParametersRequestHandler|\nОтключитьОбработчикЗапросаНастроекКлиентаЛицензирования|DetachLicensingClientParametersRequestHandler|\nКаталогБиблиотекиМобильногоУстройства|MobileDeviceLibraryDir\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ПолучитьЗаголовокСистемы|GetCaption|ПолучитьСкоростьКлиентскогоСоединения|GetClientConnectionSpeed|ПодключитьОбработчикОжидания|AttachIdleHandler|УстановитьЗаголовокСистемы|SetCaption|ОтключитьОбработчикОжидания|DetachIdleHandler|ИмяКомпьютера|ComputerName|ЗавершитьРаботуСистемы|Exit|ИмяПользователя|UserName|ПрекратитьРаботуСистемы|Terminate|ПолноеИмяПользователя|UserFullName|ЗаблокироватьРаботуПользователя|LockApplication|КаталогПрограммы|BinDir|КаталогВременныхФайлов|TempFilesDir|ПравоДоступа|AccessRight|РольДоступна|IsInRole|ТекущийЯзык|CurrentLanguage|ТекущийКодЛокализации|CurrentLocaleCode|СтрокаСоединенияИнформационнойБазы|InfoBaseConnectionString|ПодключитьОбработчикОповещения|AttachNotificationHandler|ОтключитьОбработчикОповещения|DetachNotificationHandler|ПолучитьСообщенияПользователю|GetUserMessages|ПараметрыДоступа|AccessParameters|ПредставлениеПриложения|ApplicationPresentation|ТекущийЯзыкСистемы|CurrentSystemLanguage|ЗапуститьСистему|RunSystem|ТекущийРежимЗапуска|CurrentRunMode|УстановитьЧасовойПоясСеанса|SetSessionTimeZone|ЧасовойПоясСеанса|SessionTimeZone|ТекущаяДатаСеанса|CurrentSessionDate|УстановитьКраткийЗаголовокПриложения|SetShortApplicationCaption|ПолучитьКраткийЗаголовокПриложения|GetShortApplicationCaption|ПредставлениеПрава|RightPresentation|ВыполнитьПроверкуПравДоступа|VerifyAccessRights|РабочийКаталогДанныхПользователя|UserDataWorkDir|КаталогДокументов|DocumentsDir|ПолучитьИнформациюЭкрановКлиента|GetClientDisplaysInformation|ТекущийВариантОсновногоШрифтаКлиентскогоПриложения|ClientApplicationBaseFontCurrentVariant|ТекущийВариантИнтерфейсаКлиентскогоПриложения|ClientApplicationInterfaceCurrentVariant|УстановитьЗаголовокКлиентскогоПриложения|SetClientApplicationCaption|ПолучитьЗаголовокКлиентскогоПриложения|GetClientApplicationCaption|НачатьПолучениеКаталогаВременныхФайлов|BeginGettingTempFilesDir|НачатьПолучениеКаталогаДокументов|BeginGettingDocumentsDir|НачатьПолучениеРабочегоКаталогаДанныхПользователя|BeginGettingUserDataWorkDir|ПодключитьОбработчикЗапросаНастроекКлиентаЛицензирования|AttachLicensingClientParametersRequestHandler|ОтключитьОбработчикЗапросаНастроекКлиентаЛицензирования|DetachLicensingClientParametersRequestHandler|КаталогБиблиотекиМобильногоУстройства|MobileDeviceLibraryDir\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - процедуры и функции сохранения значений",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nЗначениеВСтрокуВнутр|ValueToStringInternal|\nЗначениеИзСтрокиВнутр|ValueFromStringInternal|\nЗначениеВФайл|ValueToFile|\nЗначениеИзФайла|ValueFromFile\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ЗначениеВСтрокуВнутр|ValueToStringInternal|ЗначениеИзСтрокиВнутр|ValueFromStringInternal|ЗначениеВФайл|ValueToFile|ЗначениеИзФайла|ValueFromFile\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с операционной системой",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nКомандаСистемы|System|\nЗапуститьПриложение|RunApp|\nПолучитьCOMОбъект|GetCOMObject|\nПользователиОС|OSUsers|\nНачатьЗапускПриложения|BeginRunningApplication\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(КомандаСистемы|System|ЗапуститьПриложение|RunApp|ПолучитьCOMОбъект|GetCOMObject|ПользователиОС|OSUsers|НачатьЗапускПриложения|BeginRunningApplication\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с внешними компонентами",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nПодключитьВнешнююКомпоненту|AttachAddIn|\nНачатьУстановкуВнешнейКомпоненты|BeginInstallAddIn|\nУстановитьВнешнююКомпоненту|InstallAddIn|\nНачатьПодключениеВнешнейКомпоненты|BeginAttachingAddIn\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ПодключитьВнешнююКомпоненту|AttachAddIn|НачатьУстановкуВнешнейКомпоненты|BeginInstallAddIn|УстановитьВнешнююКомпоненту|InstallAddIn|НачатьПодключениеВнешнейКомпоненты|BeginAttachingAddIn\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с файлами",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nКопироватьФайл|FileCopy|\nПереместитьФайл|MoveFile|\nУдалитьФайлы|DeleteFiles|\nНайтиФайлы|FindFiles|\nСоздатьКаталог|CreateDirectory|\nПолучитьИмяВременногоФайла|GetTempFileName|\nРазделитьФайл|SplitFile|\nОбъединитьФайлы|MergeFiles|\nПолучитьФайл|GetFile|\nНачатьПомещениеФайла|BeginPutFile|\nПоместитьФайл|PutFile|\nЭтоАдресВременногоХранилища|IsTempStorageURL|\nУдалитьИзВременногоХранилища|DeleteFromTempStorage|\nПолучитьИзВременногоХранилища|GetFromTempStorage|\nПоместитьВоВременноеХранилище|PutToTempStorage|\nПодключитьРасширениеРаботыСФайлами|AttachFileSystemExtension|\nНачатьУстановкуРасширенияРаботыСФайлами|BeginInstallFileSystemExtension|\nУстановитьРасширениеРаботыСФайлами|InstallFileSystemExtension|\nПолучитьФайлы|GetFiles|\nПоместитьФайлы|PutFiles|\nЗапроситьРазрешениеПользователя|RequestUserPermission|\nПолучитьМаскуВсеФайлы|GetAllFilesMask|\nПолучитьМаскуВсеФайлыКлиента|GetClientAllFilesMask|\nПолучитьМаскуВсеФайлыСервера|GetServerAllFilesMask|\nПолучитьРазделительПути|GetPathSeparator|\nПолучитьРазделительПутиКлиента|GetClientPathSeparator|\nПолучитьРазделительПутиСервера|GetServerPathSeparator|\nНачатьПодключениеРасширенияРаботыСФайлами|BeginAttachingFileSystemExtension|\nНачатьЗапросРазрешенияПользователя|BeginRequestingUserPermission|\nНачатьПоискФайлов|BeginFindingFiles|\nНачатьСозданиеКаталога|BeginCreatingDirectory|\nНачатьКопированиеФайла|BeginCopyingFile|\nНачатьПеремещениеФайла|BeginMovingFile|\nНачатьУдалениеФайлов|BeginDeletingFiles|\nНачатьПолучениеФайлов|BeginGettingFiles|\nНачатьПомещениеФайлов|BeginPuttingFiles|\nНачатьСозданиеДвоичныхДанныхИзФайла|BeginCreateBinaryDataFromFile\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(КопироватьФайл|FileCopy|ПереместитьФайл|MoveFile|УдалитьФайлы|DeleteFiles|НайтиФайлы|FindFiles|СоздатьКаталог|CreateDirectory|ПолучитьИмяВременногоФайла|GetTempFileName|РазделитьФайл|SplitFile|ОбъединитьФайлы|MergeFiles|ПолучитьФайл|GetFile|НачатьПомещениеФайла|BeginPutFile|ПоместитьФайл|PutFile|ЭтоАдресВременногоХранилища|IsTempStorageURL|УдалитьИзВременногоХранилища|DeleteFromTempStorage|ПолучитьИзВременногоХранилища|GetFromTempStorage|ПоместитьВоВременноеХранилище|PutToTempStorage|ПодключитьРасширениеРаботыСФайлами|AttachFileSystemExtension|НачатьУстановкуРасширенияРаботыСФайлами|BeginInstallFileSystemExtension|УстановитьРасширениеРаботыСФайлами|InstallFileSystemExtension|ПолучитьФайлы|GetFiles|ПоместитьФайлы|PutFiles|ЗапроситьРазрешениеПользователя|RequestUserPermission|ПолучитьМаскуВсеФайлы|GetAllFilesMask|ПолучитьМаскуВсеФайлыКлиента|GetClientAllFilesMask|ПолучитьМаскуВсеФайлыСервера|GetServerAllFilesMask|ПолучитьРазделительПути|GetPathSeparator|ПолучитьРазделительПутиКлиента|GetClientPathSeparator|ПолучитьРазделительПутиСервера|GetServerPathSeparator|НачатьПодключениеРасширенияРаботыСФайлами|BeginAttachingFileSystemExtension|НачатьЗапросРазрешенияПользователя|BeginRequestingUserPermission|НачатьПоискФайлов|BeginFindingFiles|НачатьСозданиеКаталога|BeginCreatingDirectory|НачатьКопированиеФайла|BeginCopyingFile|НачатьПеремещениеФайла|BeginMovingFile|НачатьУдалениеФайлов|BeginDeletingFiles|НачатьПолучениеФайлов|BeginGettingFiles|НачатьПомещениеФайлов|BeginPuttingFiles|НачатьСозданиеДвоичныхДанныхИзФайла|BeginCreateBinaryDataFromFile\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с информационной базой",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nНачатьТранзакцию|BeginTransaction|\nЗафиксироватьТранзакцию|CommitTransaction|\nОтменитьТранзакцию|RollbackTransaction|\nУстановитьМонопольныйРежим|SetExclusiveMode|\nМонопольныйРежим|ExclusiveMode|\nПолучитьОперативнуюОтметкуВремени|GetRealTimeTimestamp|\nПолучитьСоединенияИнформационнойБазы|GetInfoBaseConnections|\nНомерСоединенияИнформационнойБазы|InfoBaseConnectionNumber|\nКонфигурацияИзменена|ConfigurationChanged|\nКонфигурацияБазыДанныхИзмененаДинамически|DataBaseConfigurationChangedDynamically|\nУстановитьВремяОжиданияБлокировкиДанных|SetLockWaitTime|\nОбновитьНумерациюОбъектов|RefreshObjectsNumbering|\nПолучитьВремяОжиданияБлокировкиДанных|GetLockWaitTime|\nКодЛокализацииИнформационнойБазы|InfoBaseLocaleCode|\nУстановитьМинимальнуюДлинуПаролейПользователей|SetUserPasswordMinLength|\nПолучитьМинимальнуюДлинуПаролейПользователей|GetUserPasswordMinLength|\nИнициализироватьПредопределенныеДанные|InitializePredefinedData|\nУдалитьДанныеИнформационнойБазы|EraseInfoBaseData|\nУстановитьПроверкуСложностиПаролейПользователей|SetUserPasswordStrengthCheck|\nПолучитьПроверкуСложностиПаролейПользователей|GetUserPasswordStrengthCheck|\nПолучитьСтруктуруХраненияБазыДанных|GetDBStorageStructureInfo|\nУстановитьПривилегированныйРежим|SetPrivilegedMode|\nПривилегированныйРежим|PrivilegedMode|\nТранзакцияАктивна|TransactionActive|\nНеобходимостьЗавершенияСоединения|ConnectionStopRequest|\nНомерСеансаИнформационнойБазы|InfoBaseSessionNumber|\nПолучитьСеансыИнформационнойБазы|GetInfoBaseSessions|\nЗаблокироватьДанныеДляРедактирования|LockDataForEdit|\nУстановитьСоединениеСВнешнимИсточникомДанных|ConnectExternalDataSource|\nРазблокироватьДанныеДляРедактирования|UnlockDataForEdit|\nРазорватьСоединениеСВнешнимИсточникомДанных|DisconnectExternalDataSource|\nПолучитьБлокировкуСеансов|GetSessionsLock|\nУстановитьБлокировкуСеансов|SetSessionsLock|\nОбновитьПовторноИспользуемыеЗначения|RefreshReusableValues|\nУстановитьБезопасныйРежим|SetSafeMode|\nБезопасныйРежим|SafeMode|\nПолучитьДанныеВыбора|GetChoiceData|\nУстановитьЧасовойПоясИнформационнойБазы|SetInfoBaseTimeZone|\nПолучитьЧасовойПоясИнформационнойБазы|GetInfoBaseTimeZone|\nПолучитьОбновлениеКонфигурацииБазыДанных|GetDataBaseConfigurationUpdate|\nУстановитьБезопасныйРежимРазделенияДанных|SetDataSeparationSafeMode|\nБезопасныйРежимРазделенияДанных|DataSeparationSafeMode|\nУстановитьВремяЗасыпанияПассивногоСеанса|SetPassiveSessionHibernateTime|\nПолучитьВремяЗасыпанияПассивногоСеанса|GetPassiveSessionHibernateTime|\nУстановитьВремяЗавершенияСпящегоСеанса|SetHibernateSessionTerminateTime|\nПолучитьВремяЗавершенияСпящегоСеанса|GetHibernateSessionTerminateTime|\nПолучитьТекущийСеансИнформационнойБазы|GetCurrentInfoBaseSession|\nПолучитьИдентификаторКонфигурации|GetConfigurationID|\nУстановитьНастройкиКлиентаЛицензирования|SetLicensingClientParameters|\nПолучитьИмяКлиентаЛицензирования|GetLicensingClientName|\nПолучитьДополнительныйПараметрКлиентаЛицензирования|GetLicensingClientAdditionalParameter|\nПолучитьОтключениеБезопасногоРежима|GetSafeModeDisabled|\nУстановитьОтключениеБезопасногоРежима|SetSafeModeDisabled\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(НачатьТранзакцию|BeginTransaction|ЗафиксироватьТранзакцию|CommitTransaction|ОтменитьТранзакцию|RollbackTransaction|УстановитьМонопольныйРежим|SetExclusiveMode|МонопольныйРежим|ExclusiveMode|ПолучитьОперативнуюОтметкуВремени|GetRealTimeTimestamp|ПолучитьСоединенияИнформационнойБазы|GetInfoBaseConnections|НомерСоединенияИнформационнойБазы|InfoBaseConnectionNumber|КонфигурацияИзменена|ConfigurationChanged|КонфигурацияБазыДанныхИзмененаДинамически|DataBaseConfigurationChangedDynamically|УстановитьВремяОжиданияБлокировкиДанных|SetLockWaitTime|ОбновитьНумерациюОбъектов|RefreshObjectsNumbering|ПолучитьВремяОжиданияБлокировкиДанных|GetLockWaitTime|КодЛокализацииИнформационнойБазы|InfoBaseLocaleCode|УстановитьМинимальнуюДлинуПаролейПользователей|SetUserPasswordMinLength|ПолучитьМинимальнуюДлинуПаролейПользователей|GetUserPasswordMinLength|ИнициализироватьПредопределенныеДанные|InitializePredefinedData|УдалитьДанныеИнформационнойБазы|EraseInfoBaseData|УстановитьПроверкуСложностиПаролейПользователей|SetUserPasswordStrengthCheck|ПолучитьПроверкуСложностиПаролейПользователей|GetUserPasswordStrengthCheck|ПолучитьСтруктуруХраненияБазыДанных|GetDBStorageStructureInfo|УстановитьПривилегированныйРежим|SetPrivilegedMode|ПривилегированныйРежим|PrivilegedMode|ТранзакцияАктивна|TransactionActive|НеобходимостьЗавершенияСоединения|ConnectionStopRequest|НомерСеансаИнформационнойБазы|InfoBaseSessionNumber|ПолучитьСеансыИнформационнойБазы|GetInfoBaseSessions|ЗаблокироватьДанныеДляРедактирования|LockDataForEdit|УстановитьСоединениеСВнешнимИсточникомДанных|ConnectExternalDataSource|РазблокироватьДанныеДляРедактирования|UnlockDataForEdit|РазорватьСоединениеСВнешнимИсточникомДанных|DisconnectExternalDataSource|ПолучитьБлокировкуСеансов|GetSessionsLock|УстановитьБлокировкуСеансов|SetSessionsLock|ОбновитьПовторноИспользуемыеЗначения|RefreshReusableValues|УстановитьБезопасныйРежим|SetSafeMode|БезопасныйРежим|SafeMode|ПолучитьДанныеВыбора|GetChoiceData|УстановитьЧасовойПоясИнформационнойБазы|SetInfoBaseTimeZone|ПолучитьЧасовойПоясИнформационнойБазы|GetInfoBaseTimeZone|ПолучитьОбновлениеКонфигурацииБазыДанных|GetDataBaseConfigurationUpdate|УстановитьБезопасныйРежимРазделенияДанных|SetDataSeparationSafeMode|БезопасныйРежимРазделенияДанных|DataSeparationSafeMode|УстановитьВремяЗасыпанияПассивногоСеанса|SetPassiveSessionHibernateTime|ПолучитьВремяЗасыпанияПассивногоСеанса|GetPassiveSessionHibernateTime|УстановитьВремяЗавершенияСпящегоСеанса|SetHibernateSessionTerminateTime|ПолучитьВремяЗавершенияСпящегоСеанса|GetHibernateSessionTerminateTime|ПолучитьТекущийСеансИнформационнойБазы|GetCurrentInfoBaseSession|ПолучитьИдентификаторКонфигурации|GetConfigurationID|УстановитьНастройкиКлиентаЛицензирования|SetLicensingClientParameters|ПолучитьИмяКлиентаЛицензирования|GetLicensingClientName|ПолучитьДополнительныйПараметрКлиентаЛицензирования|GetLicensingClientAdditionalParameter|ПолучитьОтключениеБезопасногоРежима|GetSafeModeDisabled|УстановитьОтключениеБезопасногоРежима|SetSafeModeDisabled\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с данными информационной базы",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nНайтиПомеченныеНаУдаление|FindMarkedForDeletion|\nНайтиПоСсылкам|FindByRef|\nУдалитьОбъекты|DeleteObjects|\nУстановитьОбновлениеПредопределенныхДанныхИнформационнойБазы|SetInfoBasePredefinedDataUpdate|\nПолучитьОбновлениеПредопределенныхДанныхИнформационнойБазы|GetInfoBasePredefinedData\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(НайтиПомеченныеНаУдаление|FindMarkedForDeletion|НайтиПоСсылкам|FindByRef|УдалитьОбъекты|DeleteObjects|УстановитьОбновлениеПредопределенныхДанныхИнформационнойБазы|SetInfoBasePredefinedDataUpdate|ПолучитьОбновлениеПредопределенныхДанныхИнформационнойБазы|GetInfoBasePredefinedData\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с XML",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nXMLСтрока|XMLString|\nXMLЗначение|XMLValue|\nXMLТип|XMLType|\nXMLТипЗнч|XMLTypeOf|\nИзXMLТипа|FromXMLType|\nВозможностьЧтенияXML|CanReadXML|\nПолучитьXMLТип|GetXMLType|\nПрочитатьXML|ReadXML|\nЗаписатьXML|WriteXML|\nНайтиНедопустимыеСимволыXML|FindDisallowedXMLCharacters|\nИмпортМоделиXDTO|ImportXDTOModel|\nСоздатьФабрикуXDTO|CreateXDTOFactory\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(XMLСтрока|XMLString|XMLЗначение|XMLValue|XMLТип|XMLType|XMLТипЗнч|XMLTypeOf|ИзXMLТипа|FromXMLType|ВозможностьЧтенияXML|CanReadXML|ПолучитьXMLТип|GetXMLType|ПрочитатьXML|ReadXML|ЗаписатьXML|WriteXML|НайтиНедопустимыеСимволыXML|FindDisallowedXMLCharacters|ИмпортМоделиXDTO|ImportXDTOModel|СоздатьФабрикуXDTO|CreateXDTOFactory\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с JSON",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nЗаписатьJSON|WriteJSON|\nПрочитатьJSON|ReadJSON|\nПрочитатьДатуJSON|ReadJSONDate|\nЗаписатьДатуJSON|WriteJSONDate\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ЗаписатьJSON|WriteJSON|ПрочитатьJSON|ReadJSON|ПрочитатьДатуJSON|ReadJSONDate|ЗаписатьДатуJSON|WriteJSONDate\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с журналом регистрации",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nЗаписьЖурналаРегистрации|WriteLogEvent|\nПолучитьИспользованиеЖурналаРегистрации|GetEventLogUsing|\nУстановитьИспользованиеЖурналаРегистрации|SetEventLogUsing|\nПредставлениеСобытияЖурналаРегистрации|EventLogEventPresentation|\nВыгрузитьЖурналРегистрации|UnloadEventLog|\nПолучитьЗначенияОтбораЖурналаРегистрации|GetEventLogFilterValues|\nУстановитьИспользованиеСобытияЖурналаРегистрации|SetEventLogEventUse|\nПолучитьИспользованиеСобытияЖурналаРегистрации|GetEventLogEventUse|\nСкопироватьЖурналРегистрации|CopyEventLog|\nОчиститьЖурналРегистрации|ClearEventLog\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ЗаписьЖурналаРегистрации|WriteLogEvent|ПолучитьИспользованиеЖурналаРегистрации|GetEventLogUsing|УстановитьИспользованиеЖурналаРегистрации|SetEventLogUsing|ПредставлениеСобытияЖурналаРегистрации|EventLogEventPresentation|ВыгрузитьЖурналРегистрации|UnloadEventLog|ПолучитьЗначенияОтбораЖурналаРегистрации|GetEventLogFilterValues|УстановитьИспользованиеСобытияЖурналаРегистрации|SetEventLogEventUse|ПолучитьИспользованиеСобытияЖурналаРегистрации|GetEventLogEventUse|СкопироватьЖурналРегистрации|CopyEventLog|ОчиститьЖурналРегистрации|ClearEventLog\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с универсальными объектами",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nЗначениеВДанныеФормы|ValueToFormData|\nДанныеФормыВЗначение|FormDataToValue|\nКопироватьДанныеФормы|CopyFormData|\nУстановитьСоответствиеОбъектаИФормы|SetObjectAndFormConformity|\nПолучитьСоответствиеОбъектаИФормы|GetObjectAndFormConformity\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ЗначениеВДанныеФормы|ValueToFormData|ДанныеФормыВЗначение|FormDataToValue|КопироватьДанныеФормы|CopyFormData|УстановитьСоответствиеОбъектаИФормы|SetObjectAndFormConformity|ПолучитьСоответствиеОбъектаИФормы|GetObjectAndFormConformity\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с функциональными опциями",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nПолучитьФункциональнуюОпцию|GetFunctionalOption|\nПолучитьФункциональнуюОпциюИнтерфейса|GetInterfaceFunctionalOption|\nУстановитьПараметрыФункциональныхОпцийИнтерфейса|SetInterfaceFunctionalOptionParameters|\nПолучитьПараметрыФункциональныхОпцийИнтерфейса|GetInterfaceFunctionalOptionParameters|\nОбновитьИнтерфейс|RefreshInterface\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ПолучитьФункциональнуюОпцию|GetFunctionalOption|ПолучитьФункциональнуюОпциюИнтерфейса|GetInterfaceFunctionalOption|УстановитьПараметрыФункциональныхОпцийИнтерфейса|SetInterfaceFunctionalOptionParameters|ПолучитьПараметрыФункциональныхОпцийИнтерфейса|GetInterfaceFunctionalOptionParameters|ОбновитьИнтерфейс|RefreshInterface\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с криптографией",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nУстановитьРасширениеРаботыСКриптографией|InstallCryptoExtension|\nНачатьУстановкуРасширенияРаботыСКриптографией|BeginInstallCryptoExtension|\nПодключитьРасширениеРаботыСКриптографией|AttachCryptoExtension|\nНачатьПодключениеРасширенияРаботыСКриптографией|BeginAttachingCryptoExtension\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(УстановитьРасширениеРаботыСКриптографией|InstallCryptoExtension|НачатьУстановкуРасширенияРаботыСКриптографией|BeginInstallCryptoExtension|ПодключитьРасширениеРаботыСКриптографией|AttachCryptoExtension|НачатьПодключениеРасширенияРаботыСКриптографией|BeginAttachingCryptoExtension\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы со стандартным интерфейсом OData",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nУстановитьСоставСтандартногоИнтерфейсаOData|SetStandardODataInterfaceContent|\nПолучитьСоставСтандартногоИнтерфейсаOData|GetStandardODataInterfaceContent\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(УстановитьСоставСтандартногоИнтерфейсаOData|SetStandardODataInterfaceContent|ПолучитьСоставСтандартногоИнтерфейсаOData|GetStandardODataInterfaceContent\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с двоичными данными",
@@ -543,22 +566,22 @@
                 {
                     "comment": "Глобальный контекст - Прочие процедуры и функции",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nМин|Min|\nМакс|Max|\nОписаниеОшибки|ErrorDescription|\nВычислить|Eval|\nИнформацияОбОшибке|ErrorInfo|\nBase64Значение|Base64Value|\nBase64Строка|Base64String|\nЗаполнитьЗначенияСвойств|FillPropertyValues|\nЗначениеЗаполнено|ValueIsFilled|\nПолучитьПредставленияНавигационныхСсылок|GetURLsPresentations|\nНайтиОкноПоНавигационнойСсылке|FindWindowByURL|\nПолучитьОкна|GetWindows|\nПерейтиПоНавигационнойСсылке|GotoURL|\nПолучитьНавигационнуюСсылку|GetURL|\nПолучитьДопустимыеКодыЛокализации|GetAvailableLocaleCodes|\nПолучитьНавигационнуюСсылкуИнформационнойБазы|GetInfoBaseURL|\nПредставлениеКодаЛокализации|LocaleCodePresentation|\nПолучитьДопустимыеЧасовыеПояса|GetAvailableTimeZones|\nПредставлениеЧасовогоПояса|TimeZonePresentation|\nТекущаяУниверсальнаяДата|CurrentUniversalDate|\nТекущаяУниверсальнаяДатаВМиллисекундах|CurrentUniversalDateInMilliseconds|\nМестноеВремя|ToLocalTime|\nУниверсальноеВремя|ToUniversalTime|\nЧасовойПояс|TimeZone|\nСмещениеЛетнегоВремени|DaylightTimeOffset|\nСмещениеСтандартногоВремени|StandardTimeOffset|\nКодироватьСтроку|EncodeString|\nРаскодироватьСтроку|DecodeString|\nНайти|Find|\nПродолжитьВызов|ProceedWithCall\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(Мин|Min|Макс|Max|ОписаниеОшибки|ErrorDescription|Вычислить|Eval|ИнформацияОбОшибке|ErrorInfo|Base64Значение|Base64Value|Base64Строка|Base64String|ЗаполнитьЗначенияСвойств|FillPropertyValues|ЗначениеЗаполнено|ValueIsFilled|ПолучитьПредставленияНавигационныхСсылок|GetURLsPresentations|НайтиОкноПоНавигационнойСсылке|FindWindowByURL|ПолучитьОкна|GetWindows|ПерейтиПоНавигационнойСсылке|GotoURL|ПолучитьНавигационнуюСсылку|GetURL|ПолучитьДопустимыеКодыЛокализации|GetAvailableLocaleCodes|ПолучитьНавигационнуюСсылкуИнформационнойБазы|GetInfoBaseURL|ПредставлениеКодаЛокализации|LocaleCodePresentation|ПолучитьДопустимыеЧасовыеПояса|GetAvailableTimeZones|ПредставлениеЧасовогоПояса|TimeZonePresentation|ТекущаяУниверсальнаяДата|CurrentUniversalDate|ТекущаяУниверсальнаяДатаВМиллисекундах|CurrentUniversalDateInMilliseconds|МестноеВремя|ToLocalTime|УниверсальноеВремя|ToUniversalTime|ЧасовойПояс|TimeZone|СмещениеЛетнегоВремени|DaylightTimeOffset|СмещениеСтандартногоВремени|StandardTimeOffset|КодироватьСтроку|EncodeString|РаскодироватьСтроку|DecodeString|Найти|Find|ПродолжитьВызов|ProceedWithCall\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - События приложения и сеанса",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nПередНачаломРаботыСистемы|BeforeStart|\nПриНачалеРаботыСистемы|OnStart|\nПередЗавершениемРаботыСистемы|BeforeExit|\nПриЗавершенииРаботыСистемы|OnExit|\nОбработкаВнешнегоСобытия|ExternEventProcessing|\nУстановкаПараметровСеанса|SessionParametersSetting|\nПриИзмененииПараметровЭкрана|OnChangeDisplaySettings\n)\\s*(?=\\())"
-                },
-                {
-                    "comment": "Глобальный контекст - Свойства (классы)",
-                    "name": "support.class.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nWSСсылки|WSReferences|\nБиблиотекаКартинок|PictureLib|\nБиблиотекаМакетовОформленияКомпоновкиДанных|DataCompositionAppearanceTemplateLib|\nБиблиотекаСтилей|StyleLib|\nБизнесПроцессы|BusinessProcesses|\nВнешниеИсточникиДанных|ExternalDataSources|\nВнешниеОбработки|ExternalDataProcessors|\nВнешниеОтчеты|ExternalReports|\nДокументы|Documents|\nДоставляемыеУведомления|DeliverableNotifications|\nЖурналыДокументов|DocumentJournals|\nЗадачи|Tasks|\nИнформацияОбИнтернетСоединении|InternetConnectionInformation|\nИспользованиеРабочейДаты|WorkingDateUse|\nИсторияРаботыПользователя|UserWorkHistory|\nКонстанты|Constants|\nКритерииОтбора|FilterCriteria|\nМетаданные|Metadata|\nОбработки|DataProcessors|\nОтправкаДоставляемыхУведомлений|DeliverableNotificationSend|\nОтчеты|Reports|\nПараметрыСеанса|SessionParameters|\nПеречисления|Enums|\nПланыВидовРасчета|ChartsOfCalculationTypes|\nПланыВидовХарактеристик|ChartsOfCharacteristicTypes|\nПланыОбмена|ExchangePlans|\nПланыСчетов|ChartsOfAccounts|\nПолнотекстовыйПоиск|FullTextSearch|\nПользователиИнформационнойБазы|InfoBaseUsers|\nПоследовательности|Sequences|\nРасширенияКонфигурации|ConfigurationExtensions|\nРегистрыБухгалтерии|AccountingRegisters|\nРегистрыНакопления|AccumulationRegisters|\nРегистрыРасчета|CalculationRegisters|\nРегистрыСведений|InformationRegisters|\nРегламентныеЗадания|ScheduledJobs|\nСериализаторXDTO|XDTOSerializer|\nСправочники|Catalogs|\nСредстваГеопозиционирования|LocationTools|\nСредстваКриптографии|CryptoToolsManager|\nСредстваМультимедиа|MultimediaTools|\nСредстваОтображенияРекламы|AdvertisingPresentationTools|\nСредстваПочты|MailTools|\nСредстваТелефонии|TelephonyTools|\nФабрикаXDTO|XDTOFactory|\nФайловыеПотоки|FileStreams|\nФоновыеЗадания|BackgroundJobs|\nХранилищаНастроек|SettingsStorages|\nВстроенныеПокупки|InAppPurchases|\nОтображениеРекламы|AdRepresentation|\nПанельЗадачОС|OSTaskbar|\nПроверкаВстроенныхПокупок|InAppPurchasesValidation\n)(?=[^\\wа-яё]|$))"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ПередНачаломРаботыСистемы|BeforeStart|ПриНачалеРаботыСистемы|OnStart|ПередЗавершениемРаботыСистемы|BeforeExit|ПриЗавершенииРаботыСистемы|OnExit|ОбработкаВнешнегоСобытия|ExternEventProcessing|УстановкаПараметровСеанса|SessionParametersSetting|ПриИзмененииПараметровЭкрана|OnChangeDisplaySettings\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Свойства (переменные)",
                     "name": "support.variable.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(\nГлавныйИнтерфейс|MainInterface|\nГлавныйСтиль|MainStyle|\nПараметрЗапуска|LaunchParameter|\nРабочаяДата|WorkingDate|\nХранилищеВариантовОтчетов|ReportsVariantsStorage|\nХранилищеНастроекДанныхФорм|FormDataSettingsStorage|\nХранилищеОбщихНастроек|CommonSettingsStorage|\nХранилищеПользовательскихНастроекДинамическихСписков|DynamicListsUserSettingsStorage|\nХранилищеПользовательскихНастроекОтчетов|ReportsUserSettingsStorage|\nХранилищеСистемныхНастроек|SystemSettingsStorage\n)(?=[^\\wа-яё]|$))"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ГлавныйИнтерфейс|MainInterface|ГлавныйСтиль|MainStyle|ПараметрЗапуска|LaunchParameter|РабочаяДата|WorkingDate|ХранилищеВариантовОтчетов|ReportsVariantsStorage|ХранилищеНастроекДанныхФорм|FormDataSettingsStorage|ХранилищеОбщихНастроек|CommonSettingsStorage|ХранилищеПользовательскихНастроекДинамическихСписков|DynamicListsUserSettingsStorage|ХранилищеПользовательскихНастроекОтчетов|ReportsUserSettingsStorage|ХранилищеСистемныхНастроек|SystemSettingsStorage\n)(?=[^\\wа-яё]|$))"
+                },
+                {
+                    "comment": "Async support functions",
+                    "name": "support.function.bsl",
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ВвестиДатуАсинх|ВопросАсинх|НайтиФайлыАсинх)\\b(?=\\s*\\()"
                 }
             ]
         },
@@ -596,13 +619,13 @@
                     },
                     "patterns": [
                         {
-                            "include": "#basic"
-                        },
-                        {
-                            "include": "#keywordOperators"
+                            "include": "#miscellaneous"
                         },
                         {
                             "include": "#blockEntities"
+                        },
+                        {
+                            "include": "#basic"
                         }
                     ]
                 }
@@ -641,9 +664,6 @@
                     "include": "#basic"
                 },
                 {
-                    "include": "#keywordOperators"
-                },
-                {
                     "name": "storage.modifier.bsl",
                     "match": "(?i:(?<=[^\\wа-яё\\.]|^)(Знач|Val)(?=[^\\wа-яё\\.]|$))"
                 },
@@ -656,8 +676,322 @@
                     "match": "(?<=[^\\wа-яё\\.]|^)((?<==\\s)\\s*(?i)[a-zа-яё0-9_]+)(?=[^\\wа-яё\\.]|$)"
                 },
                 {
+                    "include": "#miscellaneous"
+                },
+                {
+                    "include": "#blockEntities"
+                },
+                {
                     "name": "variable.parameter.bsl",
                     "match": "(?i:[a-zа-яё0-9_]+)"
+                }
+            ]
+        },
+        "stringPatternParameter": {
+            "patterns": [
+                {
+                    "match": "%[0-9]+",
+                    "name": "variable.parameter.bsl"
+                }
+            ]
+        },
+        "supportEnums": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ОбходРезультатаЗапроса)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ВидДвиженияНакопления)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(РежимДиалогаВопрос)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(КодВозвратаДиалога)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                }
+            ]
+        },
+        "supportClasses": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Движения)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Перечисления)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                },
+                {
+                    "include": "#supportRegisterTable"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(WSСсылки|WSReferences|БиблиотекаКартинок|PictureLib|БиблиотекаМакетовОформленияКомпоновкиДанных|DataCompositionAppearanceTemplateLib|БиблиотекаСтилей|StyleLib|БизнесПроцессы|BusinessProcesses|ВнешниеИсточникиДанных|ExternalDataSources|ВнешниеОбработки|ExternalDataProcessors|ВнешниеОтчеты|ExternalReports|Документы|Documents|ДоставляемыеУведомления|DeliverableNotifications|ЖурналыДокументов|DocumentJournals|Задачи|Tasks|ИнформацияОбИнтернетСоединении|InternetConnectionInformation|ИспользованиеРабочейДаты|WorkingDateUse|ИсторияРаботыПользователя|UserWorkHistory|Константы|Constants|КритерииОтбора|FilterCriteria|Метаданные|Metadata|Обработки|DataProcessors|ОтправкаДоставляемыхУведомлений|DeliverableNotificationSend|Отчеты|Reports|ПараметрыСеанса|SessionParameters|Перечисления|Enums|ПланыВидовРасчета|ChartsOfCalculationTypes|ПланыВидовХарактеристик|ChartsOfCharacteristicTypes|ПланыОбмена|ExchangePlans|ПланыСчетов|ChartsOfAccounts|ПолнотекстовыйПоиск|FullTextSearch|ПользователиИнформационнойБазы|InfoBaseUsers|Последовательности|Sequences|РасширенияКонфигурации|ConfigurationExtensions|РегистрыБухгалтерии|AccountingRegisters|РегистрыНакопления|AccumulationRegisters|РегистрыРасчета|CalculationRegisters|РегистрыСведений|InformationRegisters|РегламентныеЗадания|ScheduledJobs|СериализаторXDTO|XDTOSerializer|Справочники|Catalogs|СредстваГеопозиционирования|LocationTools|СредстваКриптографии|CryptoToolsManager|СредстваМультимедиа|MultimediaTools|СредстваОтображенияРекламы|AdvertisingPresentationTools|СредстваПочты|MailTools|СредстваТелефонии|TelephonyTools|ФабрикаXDTO|XDTOFactory|ФайловыеПотоки|FileStreams|ФоновыеЗадания|BackgroundJobs|ХранилищаНастроек|SettingsStorages|ВстроенныеПокупки|InAppPurchases|ОтображениеРекламы|AdRepresentation|ПанельЗадачОС|OSTaskbar|ПроверкаВстроенныхПокупок|InAppPurchasesValidation)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                }
+            ]
+        },
+        "supportLanguageConstant": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ЭтотОбъект|ЭтаФорма)\\b",
+                    "name": "constant.language.bsl"
+                }
+            ]
+        },
+        "supportRegisterTable": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Регистры(?:Накопления|Сведений|Бухгалтерии))\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
+                }
+            ]
+        },
+        "stringSupportValues": {
+            "patterns": [
+                {
+                    "begin": "(?i:)(?<=\\b(?:ПредопределенноеЗначение|Тип)\\s*\\(\\s*)(\\\")(?!\\s*\\\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Документ|Справочник|Перечисление)\\b(?=\\s*\\.)",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\bРегистр(?:Накопления|Сведений|Бухгалтерии)(?=\\s+|\\.)",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ДокументСсылка|СправочникСсылка|ПеречислениеСсылка)\\b(?=\\s*\\.|\\\")",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b((?:Фиксированная)?Структура|(?:Фиксированный)?Массив|(?:Фиксированное)?Соответствие|Тип|ТаблицаЗначений)\\b(?=\\\")",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Число|Строка|Дата)\\b(?=\\\")",
+                            "name": "support.class.bsl"
+                        },
+                        {
+                            "include": "#blockObjectProperties"
+                        }
+                    ]
+                },
+                {
+                    "comment": "function callback arguments inline",
+                    "begin": "(?i:)(?<=\\b(?:ОписаниеОповещения)\\s*\\(\\s*)(\\\")(?!\\s*\\\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "match": "(?<=\\(\\s*\\\")\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=\\\")",
+                            "name": "entity.name.function.bsl"
+                        }
+                    ]
+                },
+                {
+                    "comment": "function callback arguments in next line",
+                    "begin": "(?i:)(?<=\\b(?:ОписаниеОповещения)\\b\\s*\\(\\s*)$",
+                    "end": "(?<=\\S)(\\\")(?!\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "match": "(?<=^\\s*)\\\"(?!\\s*\\\")",
+                            "name": "string.quoted.double.bsl"
+                        },
+                        {
+                            "match": "(?<=^\\s*\\\")\\b([_$[:alpha:]][_$[:alnum:]]*)\\b(?=\\\")",
+                            "name": "entity.name.function.bsl"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?i:)(\\\")(Документ|Справочник|Перечисление)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        },
+                        "2": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjectProperties"
+                        }
+                    ]
+                }
+            ]
+        },
+        "supportValueTypes": {
+            "match": "\\b(?i:Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b",
+            "name": "support.type.bsl"
+        },
+        "quotedString": {
+            "begin": "(\\\")",
+            "beginCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "end": "(\\\")(?![\\\"])",
+            "endCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#quotedStringBody"
+                }
+            ]
+        },
+        "quotedStringBody": {
+            "patterns": [
+                {
+                    "include": "#query"
+                },
+                {
+                    "name": "constant.character.escape.bsl",
+                    "match": "\\\"\\\""
+                },
+                {
+                    "name": "comment.line.double-slash.bsl",
+                    "match": "(^\\s*//.*$)"
+                },
+                {
+                    "include": "#stringPatternParameter"
+                },
+                {
+                    "match": "[^\\\"]",
+                    "name": "string.quoted.double.bsl"
+                }
+            ]
+        },
+        "stringWithSingleSupportObject": {
+            "begin": "(?<!\\\"\\s*)(\\\")(?=[_$[:alpha:]][_$[:alnum:]]*(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+\\\")(?!\\s*\\\")",
+            "beginCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+            "endCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Регистр(?:Накопления|Сведений|Бухгалтерии))\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "captures": {
+                        "1": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjectProperties"
+                        }
+                    ]
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ДокументСсылка|СправочникСсылка)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "captures": {
+                        "1": {
+                            "name": "support.class.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjectProperties"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(СправочникСсылка|ДокументСсылка)\\b(?=(?:\\s*\\.\\s*[_$[:alpha:]][_$[:alnum:]]*\\s*)+)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        },
+                        "2": {
+                            "name": "support.type.bsl"
+                        }
+                    },
+                    "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+                    "endCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.bsl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#blockObjectProperties"
+                        },
+                        {
+                            "include": "#quotedStringBody"
+                        }
+                    ]
+                }
+            ]
+        },
+        "stringWithSingleSupportValue": {
+            "begin": "(?<!\\\"\\s*)(\\\")(?=[_$[:alpha:]][_$[:alnum:]]*\\\")(?!\\s*\\\")",
+            "beginCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "end": "(?<!\\\"\\s*)(\\\")(?!\\s*\\\")",
+            "endCaptures": {
+                "1": {
+                    "name": "string.quoted.double.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=\\s*\\\")",
+                    "captures": {
+                        "1": {
+                            "name": "support.class.bsl"
+                        }
+                    }
+                },
+                {
+                    "include": "#quotedStringBody"
                 }
             ]
         }

@@ -11,6 +11,9 @@
             "include": "#basic"
         },
         {
+            "include": "#supportTableClasses"
+        },
+        {
             "include": "#supportFunctions"
         },
         {
@@ -24,6 +27,12 @@
         },
         {
             "include": "#properties"
+        },
+        {
+            "include": "#codeBlock"
+        },
+        {
+            "include": "#virtualTable"
         },
         {
             "include": "#variables"
@@ -140,28 +149,118 @@
             "patterns": [
                 {
                     "comment": "Функции языка запросов",
-                    "name": "support.function.sdbl",
-                    "match": "(?i)(?<=[^\\wа-яё\\.]|^)(Значение|Value|ДатаВремя|DateTime|Тип|Type)(?=\\()"
+                    "begin": "(?i)(?<=[^\\wа-яё\\.]|^)(Значение|Value|ДатаВремя|DateTime|Тип|Type)(\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "support.function.sdbl"
+                        },
+                        "2": {
+                            "name": "punctuation.bracket.begin.sdbl"
+                        }
+                    },
+                    "end": "\\s*(\\))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.bracket.end.sdbl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#functionsParameters"
+                        }
+                    ]
                 },
                 {
                     "comment": "Функции работы со строками",
-                    "name": "support.function.sdbl",
-                    "match": "(?i)(?<=[^\\wа-яё\\.]|^)(Подстрока|Substring)(?=\\()"
+                    "begin": "(?i)(?<=[^\\wа-яё\\.]|^)(Подстрока|Substring)(?=\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "support.function.sdbl"
+                        },
+                        "2": {
+                            "name": "punctuation.bracket.begin.sdbl"
+                        }
+                    },
+                    "end": "\\s*(\\))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.bracket.end.sdbl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#functionsParameters"
+                        }
+                    ]
                 },
                 {
                     "comment": "Функции работы с датами",
-                    "name": "support.function.sdbl",
-                    "match": "(?i)(?<=[^\\wа-яё\\.]|^)(Год|Year|Квартал|Quarter|Месяц|Month|ДеньГода|DayOfYear|День|Day|Неделя|Week|ДеньНедели|Weekday|Час|Hour|Минута|Minute|Секунда|Second|НачалоПериода|BeginOfPeriod|КонецПериода|EndOfPeriod|ДобавитьКДате|DateAdd|РазностьДат|DateDiff)(?=\\()"
+                    "begin": "(?i)(?<=[^\\wа-яё\\.]|^)(Год|Year|Квартал|Quarter|Месяц|Month|ДеньГода|DayOfYear|День|Day|Неделя|Week|ДеньНедели|Weekday|Час|Hour|Минута|Minute|Секунда|Second|НачалоПериода|BeginOfPeriod|КонецПериода|EndOfPeriod|ДобавитьКДате|DateAdd|РазностьДат|DateDiff)(?=\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "support.function.sdbl"
+                        },
+                        "2": {
+                            "name": "punctuation.bracket.begin.sdbl"
+                        }
+                    },
+                    "end": "\\s*(\\))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.bracket.end.sdbl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#functionsParameters"
+                        }
+                    ]
                 },
                 {
                     "comment": "Агрегатные функции",
-                    "name": "support.function.sdbl",
-                    "match": "(?i)(?<=[^\\wа-яё\\.]|^)(Сумма|Sum|Среднее|Avg|Минимум|Min|Максимум|Max|Количество|Count)(?=\\()"
+                    "begin": "(?i)(?<=[^\\wа-яё\\.]|^)(Сумма|Sum|Среднее|Avg|Минимум|Min|Максимум|Max|Количество|Count)(?=\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "support.function.sdbl"
+                        },
+                        "2": {
+                            "name": "punctuation.bracket.begin.sdbl"
+                        }
+                    },
+                    "end": "\\s*(\\))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.bracket.end.sdbl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#functionsParameters"
+                        }
+                    ]
                 },
                 {
                     "comment": "Прочие функции",
-                    "name": "support.function.sdbl",
-                    "match": "(?i)(?<=[^\\wа-яё\\.]|^)(ЕстьNULL|IsNULL|Представление|Presentation|ПредставлениеСсылки|RefPresentation|ТипЗначения|ValueType)(?=\\()"
+                    "begin": "(?i)(?<=[^\\wа-яё\\.]|^)(ЕстьNULL|IsNULL|Представление|Presentation|ПредставлениеСсылки|RefPresentation|ТипЗначения|ValueType)(?=\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "support.function.sdbl"
+                        },
+                        "2": {
+                            "name": "punctuation.bracket.begin.sdbl"
+                        }
+                    },
+                    "end": "\\s*(\\))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.bracket.end.sdbl"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#functionsParameters"
+                        }
+                    ]
                 }
             ]
         },
@@ -185,10 +284,51 @@
                     },
                     "patterns": [
                         {
+                            "include": "#functionsParameters"
+                        }
+                    ]
+                }
+            ]
+        },
+        "functionsParmaetersBlock": {
+            "begin": "(?<=\\b[_$[:alpha:]][_$[:alnum:]]*\\b\\s*)(\\()",
+            "beginCaptures": {
+                "name": "punctuation.bracket.begin.sdbl"
+            },
+            "end": "(?<=\\s*)(\\))",
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.bracket.end.sdbl"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#functionsParameters"
+                }
+            ]
+        },
+        "codeBlock": {
+            "patterns": [
+                {
+                    "begin": "(\\()",
+                    "beginCaptures": {
+                        "name": "punctuation.bracket.begin.sdbl"
+                    },
+                    "end": "(\\))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.bracket.end.sdbl"
+                        }
+                    },
+                    "patterns": [
+                        {
                             "include": "#basic"
                         },
                         {
                             "include": "#parameters"
+                        },
+                        {
+                            "include": "#supportFunctions"
                         },
                         {
                             "include": "#functions"
@@ -197,7 +337,13 @@
                             "include": "#properties"
                         },
                         {
+                            "include": "#virtualTable"
+                        },
+                        {
                             "include": "#variables"
+                        },
+                        {
+                            "include": "#codeBlock"
                         }
                     ]
                 }
@@ -215,6 +361,81 @@
                             "name": "variable.other.property.sdbl"
                         }
                     }
+                }
+            ]
+        },
+        "virtualTable": {
+            "patterns": [
+                {
+                    "match": "\\bВТ_[_$[:alpha:]][_$[:alnum:]]*\\b",
+                    "name": "variable.other.readwrite.sdbl, entity.name.variable.sdbl, variable.parameter.sdbl"
+                }
+            ]
+        },
+        "registerTable": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<=^|\\s+|\\||\\[|\\()\\bРегистр(?:Накопления|Сведений|Бухгалтерии)(?=\\s*\\.)",
+                    "name": "support.class.sdbl"
+                }
+            ]
+        },
+        "supportTableClasses": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<=^|\\s+|\\||\\[|\\()\\b(Документ|Справочник|Перечисление)(?=\\s*\\.)",
+                    "name": "support.class.sdbl"
+                },
+                {
+                    "include": "#registerTable"
+                }
+            ]
+        },
+        "functionsSupportParameters": {
+            "patterns": [
+                {
+                    "match": "(?i:)(?<=\\(\\s*)\\b(Документ|Справочник|Перечисление)\\b(?=\\s*\\.)",
+                    "name": "support.class.sdbl"
+                },
+                {
+                    "match": "(?i:)(?<=\\(\\s*)\\bРегистр(?:Накопления|Сведений|Бухгалтерии)(?=\\s+|\\.)",
+                    "name": "support.class.sdbl"
+                },
+                {
+                    "match": "(?i:)(?<=\\(\\s*)\\b(ДокументСсылка|СправочникСсылка)\\b(?=\\s*\\.|\\\")",
+                    "name": "support.class.sdbl"
+                },
+                {
+                    "match": "(?i:)(?<=\\(\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=\\\")",
+                    "name": "support.class.sdbl"
+                }
+            ]
+        },
+        "functionsParameters": {
+            "patterns": [
+                {
+                    "include": "#basic"
+                },
+                {
+                    "include": "#functionsSupportParameters"
+                },
+                {
+                    "include": "#supportFunctions"
+                },
+                {
+                    "include": "#functions"
+                },
+                {
+                    "include": "#properties"
+                },
+                {
+                    "include": "#virtualTable"
+                },
+                {
+                    "include": "#parameters"
+                },
+                {
+                    "include": "#variables"
                 }
             ]
         }
