@@ -4,7 +4,7 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.3.43",
+  "version": "0.3.44",
   "engines": {
     "vscode": "^1.85.0"
   },
