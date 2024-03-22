@@ -2,7 +2,9 @@
 
 |Пример подсветки|
 |---|
-|![Preview image](./images/syntaxes_example.png)|
+|![Общий пример](./images/syntaxes_example.png)|
+|![Шаблоны строк](./images/syntaxes_example_str_pattern.png)|
+|![Запросы в bsl](./images/syntaxes_example_query2.png)|
 
 ---
 
