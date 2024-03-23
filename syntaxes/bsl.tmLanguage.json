@@ -528,7 +528,7 @@
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с JSON",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ЗаписатьJSON|WriteJSON|ПрочитатьJSON|ReadJSON|ПрочитатьДатуJSON|ReadJSONDate|ЗаписатьДатуJSON|WriteJSONDate\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ЗаписатьJSON|WriteJSON|ПрочитатьЗначениеJSON|ReadJSONValue|ЗаписатьЗначениеJSON|WriteJSONValue|ПрочитатьJSON|ReadJSON|ПрочитатьДатуJSON|ReadJSONDate|ЗаписатьДатуJSON|WriteJSONDate\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с журналом регистрации",
