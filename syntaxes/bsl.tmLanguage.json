@@ -847,6 +847,10 @@
                     "name": "support.class.bsl"
                 },
                 {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(МенеджерВременныхТаблиц)\\b(?=\\\")",
+                    "name": "support.class.bsl"
+                },
+                {
                     "include": "#blockObjectProperties"
                 }
             ]
