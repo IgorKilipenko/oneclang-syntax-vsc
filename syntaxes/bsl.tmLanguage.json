@@ -478,7 +478,12 @@
                 {
                     "comment": "Глобальный контекст - функции форматирования",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(Формат|Format|ЧислоПрописью|NumberInWords|НСтр|NStr|ПредставлениеПериода|PeriodPresentation|СтрШаблон|StrTemplate\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(Формат|Format|ЧислоПрописью|NumberInWords|НСтр|NStr|ПредставлениеПериода|PeriodPresentation|СтрШаблон|StrTemplate)\\s*(?=\\())"
+                },
+                {
+                    "comment": "Глобальный контекст - функции регулярных выражений",
+                    "name": "support.function.bsl",
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(СтрЗаменитьПоРегулярномуВыражению)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - функции обращения к конфигурации",
@@ -528,7 +533,7 @@
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с JSON",
                     "name": "support.function.bsl",
-                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ЗаписатьJSON|WriteJSON|ПрочитатьJSON|ReadJSON|ПрочитатьДатуJSON|ReadJSONDate|ЗаписатьДатуJSON|WriteJSONDate\n)\\s*(?=\\())"
+                    "match": "(?x)(?i:(?<=[^\\wа-яё\\.]|^)(ЗаписатьJSON|WriteJSON|ПрочитатьЗначениеJSON|ReadJSONValue|ЗаписатьЗначениеJSON|WriteJSONValue|ПрочитатьJSON|ReadJSON|ПрочитатьДатуJSON|ReadJSONDate|ЗаписатьДатуJSON|WriteJSONDate\n)\\s*(?=\\())"
                 },
                 {
                     "comment": "Глобальный контекст - Процедуры и функции работы с журналом регистрации",
@@ -709,6 +714,10 @@
                 {
                     "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(ВидДвиженияНакопления|ВидПериодаРегистраРасчета)\\b(?=\\s*\\.)",
                     "name": "support.class.bsl"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(РежимБлокировкиДанных|ВидГраницы)\\b(?=\\s*\\.)",
+                    "name": "support.class.bsl"
                 }
             ]
         },
@@ -839,6 +848,10 @@
                 },
                 {
                     "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b(?=\\\")",
+                    "name": "support.class.bsl"
+                },
+                {
+                    "match": "(?i:)(?<![\\.\\)\\]]\\s*)\\b(МенеджерВременныхТаблиц)\\b(?=\\\")",
                     "name": "support.class.bsl"
                 },
                 {
