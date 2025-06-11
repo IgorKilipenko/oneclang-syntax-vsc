@@ -149,33 +149,6 @@
             "match": "(?i)#(КонецОбласти)"
         },
         {
-            "comment": "Past region start",
-            "begin": "(?i)(#(Вставка))\\s+(//\\s*.*)?",
-            "beginCaptures": {
-                "1": {
-                    "name": "keyword.other.section.bsl"
-                },
-                "3": {
-                    "name": "entity.name.section.bsl"
-                }
-            },
-            "end": "$"
-        },
-        {
-            "comment": "Past region end",
-            "name": "keyword.other.section.bsl",
-            "begin": "(?i)(#(КонецВставки))\\s+(//\\s*.*)?",
-            "beginCaptures": {
-                "1": {
-                    "name": "keyword.other.section.bsl"
-                },
-                "3": {
-                    "name": "entity.name.section.bsl"
-                }
-            },
-            "end": "$"
-        },
-        {
             "include": "#blockEntities"
         }
     ],
@@ -442,6 +415,9 @@
                 },
                 {
                     "include": "#blockVariables"
+                },
+                {
+                    "include": "#extensionRegions"
                 }
             ]
         },
@@ -1038,6 +1014,37 @@
                             "include": "#quotedStringBody"
                         }
                     ]
+                }
+            ]
+        },
+        "extensionRegions": {
+            "patterns": [
+                {
+                    "comment": "Past region start",
+                    "begin": "(?i)(#(Вставка))\\s*(//\\s*.*)?",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "keyword.other.section.bsl"
+                        },
+                        "3": {
+                            "name": "entity.name.section.bsl"
+                        }
+                    },
+                    "end": "$"
+                },
+                {
+                    "comment": "Past region end",
+                    "name": "keyword.other.section.bsl",
+                    "begin": "(?i)(#(КонецВставки))\\s+(//\\s*.*)?",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "keyword.other.section.bsl"
+                        },
+                        "3": {
+                            "name": "entity.name.section.bsl"
+                        }
+                    },
+                    "end": "$"
                 }
             ]
         }
