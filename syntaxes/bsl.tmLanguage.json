@@ -13,7 +13,7 @@
         },
         {
             "comment": "Define of variable",
-            "begin": "(?i:(?<=[^\\wа-яё\\.]|^)(Перем|Var)\\s+([a-zа-яё0-9_]+)\\s*)",
+            "begin": "(?i:(?<=[^\\wа-яё\\.]|^)(Перем)\\s+([a-zа-яё0-9_]+)\\s*)",
             "beginCaptures": {
                 "1": {
                     "name": "storage.type.var.bsl"
@@ -42,7 +42,7 @@
         {
             "comment": "Conditional",
             "name": "meta.conditional.bsl",
-            "begin": "(?i:(?<=;|^)\\s*(Если|If))",
+            "begin": "(?i:(?<=;|^)\\s*(Если))",
             "beginCaptures": {
                 "1": {
                     "name": "keyword.control.conditional.bsl"
@@ -78,7 +78,7 @@
                     "name": "keyword.operator.assignment.bsl"
                 }
             },
-            "end": "(?i:(?=(;|Иначе|Конец|Els|End)))",
+            "end": "(?i:(?=(;|Иначе|Конец)))",
             "patterns": [
                 {
                     "include": "#basic"
@@ -97,7 +97,7 @@
         },
         {
             "name": "keyword.control.import.bsl",
-            "match": "(?i)#(Использовать|Use)(?=[^\\wа-яё\\.]|$)"
+            "match": "(?i)#(Использовать)(?=[^\\wа-яё\\.]|$)"
         },
         {
             "name": "keyword.control.native.bsl",
@@ -147,6 +147,33 @@
             "comment": "Region end",
             "name": "keyword.other.section.bsl",
             "match": "(?i)#(КонецОбласти)"
+        },
+        {
+            "comment": "Past region start",
+            "begin": "(?i)(#(Вставка))\\s+(//\\s*.*)?",
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.other.section.bsl"
+                },
+                "3": {
+                    "name": "entity.name.section.bsl"
+                }
+            },
+            "end": "$"
+        },
+        {
+            "comment": "Past region end",
+            "name": "keyword.other.section.bsl",
+            "begin": "(?i)(#(КонецВставки))\\s+(//\\s*.*)?",
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.other.section.bsl"
+                },
+                "3": {
+                    "name": "entity.name.section.bsl"
+                }
+            },
+            "end": "$"
         },
         {
             "include": "#blockEntities"
