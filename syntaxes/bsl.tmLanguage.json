@@ -192,6 +192,9 @@
                     "match": "(//((\\\"\\\")|[^\\\"])*)"
                 },
                 {
+                    "include": "#extensionRegions"
+                },
+                {
                     "name": "string.quoted.double.sdbl",
                     "match": "\\\"\\\"[^\"]*\\\"\\\""
                 },
@@ -244,6 +247,9 @@
                 {
                     "name": "punctuation.bracket.end.bsl",
                     "match": "(\\))"
+                },
+                {
+                    "include": "#extensionRegions"
                 }
             ]
         },
@@ -415,9 +421,6 @@
                 },
                 {
                     "include": "#blockVariables"
-                },
-                {
-                    "include": "#extensionRegions"
                 }
             ]
         },
@@ -782,7 +785,7 @@
             ]
         },
         "supportValueTypes": {
-            "match": "\\b(?i:Булево|Boolean|Число|Number|Строка|String|Дата|Date)\\b",
+            "match": "\\b(?i:Булево|Число|Строка|Дата)\\b",
             "name": "support.type.bsl"
         },
         "quotedString": {
@@ -1020,31 +1023,44 @@
         "extensionRegions": {
             "patterns": [
                 {
-                    "comment": "Past region start",
-                    "begin": "(?i)(#(Вставка))\\s*(//\\s*.*)?",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "keyword.other.section.bsl"
-                        },
-                        "3": {
-                            "name": "entity.name.section.bsl"
-                        }
-                    },
-                    "end": "$"
+                    "match": "(?i)(#Вставка\\b)\\s*(//.*)?$",
+                    "name": "keyword.other.section.bsl",
+                    "captures": {
+                        "1": { "name": "keyword.other.section.bsl" },
+                        "2": { "name": "comment.line.double-slash.bsl" }
+                    }
                 },
                 {
-                    "comment": "Past region end",
+                    "match": "(?i)(#КонецВставки\\b)\\s*(//.*)?$",
                     "name": "keyword.other.section.bsl",
-                    "begin": "(?i)(#(КонецВставки))\\s+(//\\s*.*)?",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "keyword.other.section.bsl"
-                        },
-                        "3": {
-                            "name": "entity.name.section.bsl"
-                        }
-                    },
-                    "end": "$"
+                    "captures": {
+                        "1": { "name": "keyword.other.section.bsl" },
+                        "2": { "name": "comment.line.double-slash.bsl" }
+                    }
+                },
+                {
+                    "match": "(?i)(#Удаление\\b)\\s*(//.*)?$",
+                    "name": "keyword.other.section.bsl",
+                    "captures": {
+                        "1": { "name": "keyword.other.section.bsl" },
+                        "2": { "name": "comment.line.double-slash.bsl" }
+                    }
+                },
+                {
+                    "match": "(?i)(#КонецУдаления\\b)\\s*(//.*)?$",
+                    "name": "keyword.other.section.bsl",
+                    "captures": {
+                        "1": { "name": "keyword.other.section.bsl" },
+                        "2": { "name": "comment.line.double-slash.bsl" }
+                    }
+                }
+            ]
+        },
+        "commentLine": {
+            "patterns": [
+                {
+                    "match": "//.*$",
+                    "name": "comment.line.double-slash.bsl"
                 }
             ]
         }
