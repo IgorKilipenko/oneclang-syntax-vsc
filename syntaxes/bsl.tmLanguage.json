@@ -1153,17 +1153,44 @@
             },
             "patterns": [
                 {
-                    "name": "meta.parameter.bsl",
-                    "match": "^\\s*(//\\s*)([А-Яа-яЁё\\w]+)\\s*-\\s*([А-Яа-яЁё\\w.]+)(?:\\s*-\\s*(.+))?",
-                    "captures": {
-                        "1": { "name": "comment.line.double-slash.bsl" },
-                        "2": { "name": "variable.parameter.bsl" },
-                        "3": { "name": "entity.name.type.bsl" },
-                        "4": { "name": "comment.line.description.bsl" }
-                    }
+                    "include": "#_docParametersBlockArgs"
                 },
                 {
                     "include": "#commentLine"
+                }
+            ]
+        },
+        "_docParametersBlockArgs": {
+            "name": "meta.documentation.parameters.bsl",
+            "begin": "^\\s*(//\\s*)([А-Яа-яЁё\\w]+)\\s*-\\s*([А-Яа-яЁё\\w.]+)",
+            "end": "(?=\\n|$)",
+            "beginCaptures": {
+                "1": { "name": "comment.line.double-slash.bsl" },
+                "2": { "name": "variable.parameter.bsl" },
+                "3": { "name": "entity.name.type.bsl" }
+            },
+            "patterns": [
+                {
+                    "name": "meta.documentation.parameters.type.list.bsl",
+                    "match": "(,\\s*)([А-Яа-яЁё\\w.]+)",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.separator.description.bsl"
+                        },
+                        "2": {
+                            "name": "entity.name.type.bsl"
+                        }
+                    }
+                },
+                {
+                    "name": "comment.line.description.bsl",
+                    "begin": "\\s*-\\s*",
+                    "end": "(?=\\n|$)",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.separator.description.bsl"
+                        }
+                    }
                 }
             ]
         },
@@ -1181,25 +1208,44 @@
             },
             "patterns": [
                 {
-                    "name": "meta.return.bsl",
-                    "match": "^\\s*(//\\s*-\\s*)([А-Яа-яЁё\\w.]+)(?:(\\s*-\\s*)([А-Яа-яЁё\\w.]+))?",
+                    "include": "#_docReturnsBlockArgs"
+                },
+                {
+                    "include": "#commentLine"
+                }
+            ]
+        },
+        "_docReturnsBlockArgs": {
+            "name": "meta.documentation.returns.bsl",
+            "begin": "^\\s*(//)(\\s*-\\s*)([А-Яа-яЁё\\w.]+)",
+            "end": "(?=\\n|$)",
+            "beginCaptures": {
+                "1": { "name": "comment.line.double-slash.bsl" },
+                "2": { "name": "punctuation.separator.description.bsl" },
+                "3": { "name": "entity.name.type.bsl" }
+            },
+            "patterns": [
+                {
+                    "name": "meta.documentation.returns.type.list.bsl",
+                    "match": "(,\\s*)([А-Яа-яЁё\\w.]+)",
                     "captures": {
                         "1": {
-                            "name": "comment.line.double-slash.bsl"
+                            "name": "punctuation.separator.description.bsl"
                         },
                         "2": {
                             "name": "entity.name.type.bsl"
-                        },
-                        "3": {
-                            "name": "comment.line.double-slash.bsl"
-                        },
-                        "4": {
-                            "name": "comment.line.double-slash.bsl"
                         }
                     }
                 },
                 {
-                    "include": "#commentLine"
+                    "name": "comment.line.description.bsl",
+                    "begin": "\\s*-\\s*",
+                    "end": "(?=\\n|$)",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.separator.description.bsl"
+                        }
+                    }
                 }
             ]
         },
