@@ -9,6 +9,9 @@
             "include": "#miscellaneous"
         },
         {
+            "include": "#functionDocumentation"
+        },
+        {
             "include": "#functionDefinition"
         },
         {
@@ -211,9 +214,7 @@
         "basic": {
             "patterns": [
                 {
-                    "name": "comment.line.double-slash.bsl",
-                    "begin": "//",
-                    "end": "$"
+                    "include": "#commentBlock"
                 },
                 {
                     "include": "#stringWithSingleSupportValue"
@@ -1061,6 +1062,96 @@
                 {
                     "match": "//.*$",
                     "name": "comment.line.double-slash.bsl"
+                }
+            ]
+        },
+        "commentBlock": {
+            "name": "comment.line.double-slash.bsl",
+            "begin": "^\\s*(?=//\\s*)",
+            "end": "(?=^(?!\\s*//))",
+            "patterns": [
+                {
+                    "include": "#functionDocumentation"
+                },
+                {
+                    "include": "#commentLine"
+                }
+            ]
+        },
+        "functionDocumentation": {
+            "name": "meta.documentation.block.bsl",
+            "begin": "^\\s*(?=(//\\s*)Параметры:|Возвращаемое значение:)",
+            "end": "(?=^(?!\\s*//))",
+            "patterns": [
+                {
+                    "include": "#docParametersBlock"
+                },
+                {
+                    "include": "#docReturnsBlock"
+                }
+            ]
+        },
+        "docParametersBlock": {
+            "name": "meta.documentation.parameters.bsl",
+            "begin": "^\\s*(//\\s*)(Параметры:)",
+            "end": "(?=^\\s*//\\s*Возвращаемое значение:|^(?!\\s*//))",
+            "beginCaptures": {
+                "1": {
+                    "name": "comment.line.double-slash.bsl"
+                },
+                "2": {
+                    "name": "keyword.control.documentation.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "name": "meta.parameter.bsl",
+                    "match": "^\\s*(//\\s*)([А-Яа-яЁё\\w]+)\\s*-\\s*([А-Яа-яЁё\\w.]+)(?:\\s*-\\s*(.+))?",
+                    "captures": {
+                        "1": { "name": "comment.line.double-slash.bsl" },
+                        "2": { "name": "variable.parameter.bsl" },
+                        "3": { "name": "entity.name.type.bsl" },
+                        "4": { "name": "comment.line.description.bsl" }
+                    }
+                },
+                {
+                    "include": "#commentLine"
+                }
+            ]
+        },
+        "docReturnsBlock": {
+            "name": "meta.documentation.returns.bsl",
+            "begin": "^\\s*(//\\s*)(Возвращаемое значение:)",
+            "end": "(?=^(?!\\s*//))",
+            "beginCaptures": {
+                "1": {
+                    "name": "comment.line.double-slash.bsl"
+                },
+                "2": {
+                    "name": "keyword.control.documentation.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "name": "meta.return.bsl",
+                    "match": "^\\s*(//\\s*-\\s*)([А-Яа-яЁё\\w.]+)(?:(\\s*-\\s*)([А-Яа-яЁё\\w.]+))?",
+                    "captures": {
+                        "1": {
+                            "name": "comment.line.double-slash.bsl"
+                        },
+                        "2": {
+                            "name": "entity.name.type.bsl"
+                        },
+                        "3": {
+                            "name": "comment.line.double-slash.bsl"
+                        },
+                        "4": {
+                            "name": "comment.line.double-slash.bsl"
+                        }
+                    }
+                },
+                {
+                    "include": "#commentLine"
                 }
             ]
         }
