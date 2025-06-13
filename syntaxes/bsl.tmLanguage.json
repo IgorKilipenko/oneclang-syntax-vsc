@@ -1025,33 +1025,33 @@
             "patterns": [
                 {
                     "match": "(?i)(#Вставка\\b)\\s*(//.*)?$",
-                    "name": "keyword.other.section.bsl",
+                    "name": "keyword.control.region.past.bsl",
                     "captures": {
-                        "1": { "name": "keyword.other.section.bsl" },
+                        "1": { "name": "keyword.control.region.past.start.bsl" },
                         "2": { "name": "comment.line.double-slash.bsl" }
                     }
                 },
                 {
                     "match": "(?i)(#КонецВставки\\b)\\s*(//.*)?$",
-                    "name": "keyword.other.section.bsl",
+                    "name": "keyword.control.region.past.bsl",
                     "captures": {
-                        "1": { "name": "keyword.other.section.bsl" },
+                        "1": { "name": "keyword.control.region.past.end.bsl" },
                         "2": { "name": "comment.line.double-slash.bsl" }
                     }
                 },
                 {
                     "match": "(?i)(#Удаление\\b)\\s*(//.*)?$",
-                    "name": "keyword.other.section.bsl",
+                    "name": "keyword.control.region.del.bsl",
                     "captures": {
-                        "1": { "name": "keyword.other.section.bsl" },
+                        "1": { "name": "keyword.control.region.del.start.bsl" },
                         "2": { "name": "comment.line.double-slash.bsl" }
                     }
                 },
                 {
                     "match": "(?i)(#КонецУдаления\\b)\\s*(//.*)?$",
-                    "name": "keyword.other.section.bsl",
+                    "name": "keyword.control.region.past.del.bsl",
                     "captures": {
-                        "1": { "name": "keyword.other.section.bsl" },
+                        "1": { "name": "keyword.control.region.del.end.bsl" },
                         "2": { "name": "comment.line.double-slash.bsl" }
                     }
                 }
