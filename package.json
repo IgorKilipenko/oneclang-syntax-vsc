@@ -4,7 +4,7 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -107,7 +107,7 @@
             {
               "scope": "variable.parameter.bsl",
               "settings": {
-                "foreground": "#9CDCFE"
+                "foreground": "#A5B8CF"
               }
             },
             {
@@ -136,6 +136,13 @@
                 "foreground": "#D7BA7D",
                 "fontStyle": "bold underline"
               }
+            },
+            {
+              "scope": "keyword.deprecated.bsl",
+              "settings": {
+                "foreground": "#FF8080",
+                "fontStyle": "italic"
+              }
             }
           ]
         },
@@ -160,7 +167,7 @@
             {
               "scope": "variable.parameter.bsl",
               "settings": {
-                "foreground": "#0070C1"
+                "foreground": "#5E7B8C"
               }
             },
             {
@@ -189,6 +196,13 @@
                 "foreground": "#9C6D1E",
                 "fontStyle": "bold underline"
               }
+            },
+            {
+              "scope": "keyword.deprecated.bsl",
+              "settings": {
+                "foreground": "#CC0000",
+                "fontStyle": "italic"
+              }
             }
           ]
         },
@@ -216,6 +230,14 @@
             ],
             "settings": {
               "fontStyle": "underline"
+            }
+          },
+          {
+            "scope": [
+              "meta.documentation.block.bsl"
+            ],
+            "settings": {
+              "fontStyle": "italic"
             }
           }
         ]
