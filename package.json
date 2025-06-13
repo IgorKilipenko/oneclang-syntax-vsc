@@ -4,7 +4,7 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -129,6 +129,13 @@
                 "foreground": "#F48771",
                 "fontStyle": "bold underline"
               }
+            },
+            {
+              "scope": ["comment.line.developer.bsl"],
+              "settings": {
+                "foreground": "#D7BA7D",
+                "fontStyle": "bold underline"
+              }
             }
           ]
         },
@@ -173,6 +180,13 @@
               "scope": ["keyword.control.region.del.bsl", "keyword.control.region.del.start.bsl", "keyword.control.region.del.end.bsl"],
               "settings": {
                 "foreground": "#A31515",
+                "fontStyle": "bold underline"
+              }
+            },
+            {
+              "scope": ["comment.line.developer.bsl"],
+              "settings": {
+                "foreground": "#9C6D1E",
                 "fontStyle": "bold underline"
               }
             }

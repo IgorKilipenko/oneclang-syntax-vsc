@@ -15,6 +15,9 @@
             "include": "#functionDefinition"
         },
         {
+            "include": "#functionEnd"
+        },
+        {
             "comment": "Define of variable",
             "begin": "(?i:(?<=[^\\wа-яё\\.]|^)(Перем)\\s+([a-zа-яё0-9_]+)\\s*)",
             "beginCaptures": {
@@ -95,10 +98,6 @@
             ]
         },
         {
-            "name": "storage.type.bsl",
-            "match": "(?i:(?<=[^\\wа-яё\\.]|^)(КонецПроцедуры|КонецФункции)(?=[^\\wа-яё\\.]|$))"
-        },
-        {
             "name": "keyword.control.import.bsl",
             "match": "(?i)#(Использовать)(?=[^\\wа-яё\\.]|$)"
         },
@@ -134,22 +133,7 @@
             "match": "(?i:#(Если|ИначеЕсли|Иначе|КонецЕсли).*(Тогда)?)"
         },
         {
-            "comment": "Region start",
-            "begin": "(?i)(#(Область))(\\s+([\\wа-яё]+))?",
-            "beginCaptures": {
-                "1": {
-                    "name": "keyword.other.section.bsl"
-                },
-                "4": {
-                    "name": "entity.name.section.bsl"
-                }
-            },
-            "end": "$"
-        },
-        {
-            "comment": "Region end",
-            "name": "keyword.other.section.bsl",
-            "match": "(?i)#(КонецОбласти)"
+            "include": "#mainRegion"
         },
         {
             "include": "#blockEntities"
@@ -215,6 +199,9 @@
             "patterns": [
                 {
                     "include": "#commentBlock"
+                },
+                {
+                    "include": "#commentLine"
                 },
                 {
                     "include": "#stringWithSingleSupportValue"
@@ -696,6 +683,20 @@
                 }
             ]
         },
+        "functionEnd": {
+            "begin": "(?i)(Конец(?:Процедуры|Функции))",
+            "end": "$",
+            "beginCaptures": {
+                "1": {
+                    "name": "storage.type.bsl"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#commentLine"
+                }
+            ]
+        },
         "stringPatternParameter": {
             "patterns": [
                 {
@@ -1024,7 +1025,7 @@
         "extensionRegions": {
             "patterns": [
                 {
-                    "match": "(?i)(#Вставка\\b)\\s*(//.*)?$",
+                    "match": "(?i)(#[Вв]ставка\\b)\\s*(//.*)?$",
                     "name": "keyword.control.region.past.bsl",
                     "captures": {
                         "1": { "name": "keyword.control.region.past.start.bsl" },
@@ -1032,7 +1033,7 @@
                     }
                 },
                 {
-                    "match": "(?i)(#КонецВставки\\b)\\s*(//.*)?$",
+                    "match": "(?i)(#[Кк]онец[Вв]ставки\\b)\\s*(//.*)?$",
                     "name": "keyword.control.region.past.bsl",
                     "captures": {
                         "1": { "name": "keyword.control.region.past.end.bsl" },
@@ -1040,7 +1041,7 @@
                     }
                 },
                 {
-                    "match": "(?i)(#Удаление\\b)\\s*(//.*)?$",
+                    "match": "(?i)(#[Уу]даление\\b)\\s*(//.*)?$",
                     "name": "keyword.control.region.del.bsl",
                     "captures": {
                         "1": { "name": "keyword.control.region.del.start.bsl" },
@@ -1048,7 +1049,7 @@
                     }
                 },
                 {
-                    "match": "(?i)(#КонецУдаления\\b)\\s*(//.*)?$",
+                    "match": "(?i)(#[Кк]онец[Уу]даления\\b)\\s*(//.*)?$",
                     "name": "keyword.control.region.past.del.bsl",
                     "captures": {
                         "1": { "name": "keyword.control.region.del.end.bsl" },
@@ -1060,8 +1061,55 @@
         "commentLine": {
             "patterns": [
                 {
+                    "include": "#developerCommentLine"
+                },
+                {
                     "match": "//.*$",
                     "name": "comment.line.double-slash.bsl"
+                }
+            ]
+        },
+        "developerCommentLine": {
+            "patterns": [
+                {
+                    "match": "\\s*(//\\s*(?:->{3}|<{3}-)\\s+.*)$",
+                    "captures": {
+                        "1": {
+                            "name": "comment.line.developer.bsl"
+                        }
+                    }
+                },
+                {
+                    "match": "\\s*(//\\s*(?:\\{{3}|\\}{3})\\s+.*)$",
+                    "captures": {
+                        "1": {
+                            "name": "comment.line.developer.bsl"
+                        }
+                    }
+                },
+                {
+                    "match": "\\s*(//.*(?:\\{{3}|\\}{3})\\s*)$",
+                    "captures": {
+                        "1": {
+                            "name": "comment.line.developer.bsl"
+                        }
+                    }
+                },
+                {
+                    "match": "\\s*(//\\s*(?:\\+{3}|-{3})\\s+.*)$",
+                    "captures": {
+                        "1": {
+                            "name": "comment.line.developer.bsl"
+                        }
+                    }
+                },
+                {
+                    "match": "\\s*(//.*(?:\\+{2}|-{2})\\s*)$",
+                    "captures": {
+                        "1": {
+                            "name": "comment.line.developer.bsl"
+                        }
+                    }
                 }
             ]
         },
@@ -1080,7 +1128,7 @@
         },
         "functionDocumentation": {
             "name": "meta.documentation.block.bsl",
-            "begin": "^\\s*(?=(//\\s*)Параметры:|Возвращаемое значение:)",
+            "begin": "^\\s*(?=(//\\s*)[Пп]араметры:|[Вв]озвращаемое значение:)",
             "end": "(?=^(?!\\s*//))",
             "patterns": [
                 {
@@ -1093,8 +1141,8 @@
         },
         "docParametersBlock": {
             "name": "meta.documentation.parameters.bsl",
-            "begin": "^\\s*(//\\s*)(Параметры:)",
-            "end": "(?=^\\s*//\\s*Возвращаемое значение:|^(?!\\s*//))",
+            "begin": "^\\s*(//\\s*)([Пп]араметры:)",
+            "end": "(?=^\\s*//\\s*[Вв]озвращаемое значение:|^(?!\\s*//))",
             "beginCaptures": {
                 "1": {
                     "name": "comment.line.double-slash.bsl"
@@ -1121,7 +1169,7 @@
         },
         "docReturnsBlock": {
             "name": "meta.documentation.returns.bsl",
-            "begin": "^\\s*(//\\s*)(Возвращаемое значение:)",
+            "begin": "^\\s*(//\\s*)([Вв]озвращаемое значение:)",
             "end": "(?=^(?!\\s*//))",
             "beginCaptures": {
                 "1": {
@@ -1150,6 +1198,52 @@
                         }
                     }
                 },
+                {
+                    "include": "#commentLine"
+                }
+            ]
+        },
+        "mainRegion": {
+            "patterns": [
+                {
+                    "include": "#mainRegionStart"
+                },
+                {
+                    "include": "#mainRegionEnd"
+                }
+            ]
+        },
+        "mainRegionStart": {
+            "begin": "(?i)(#(Область))(?:\\s+([\\wа-яёА-ЯЁ]+))?",
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.other.section.bsl"
+                },
+                "3": {
+                    "name": "entity.name.section.bsl"
+                }
+            },
+            "end": "$",
+            "parameters": [
+                {
+                    "include": "#commentLine"
+                }
+            ]
+        },
+        "mainRegionEnd": {
+            "match": "(?i)(#(КонецОбласти))(?:(\\s+//\\s*)([\\wа-яёА-ЯЁ]+)?)?",
+            "captures": {
+                "1": {
+                    "name": "keyword.other.section.bsl"
+                },
+                "3": {
+                    "name": "comment.line.double-slash.bsl"
+                },
+                "4": {
+                    "name": "entity.name.section.bsl"
+                }
+            },
+            "parameters": [
                 {
                     "include": "#commentLine"
                 }
