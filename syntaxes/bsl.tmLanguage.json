@@ -1161,23 +1161,30 @@
             ]
         },
         "_docParametersBlockArgs": {
-            "name": "meta.documentation.parameters.bsl",
-            "begin": "^\\s*(//\\s*)([А-Яа-яЁё\\w]+)\\s*-\\s*([А-Яа-яЁё\\w.]+)",
+            "begin": "^\\s*(//\\s*)([А-Яа-яЁё\\w]+)\\s*-\\s*([А-Яа-яЁё\\w.]+)(?:(\\sиз\\s+)([А-Яа-яЁё\\w.]+))?",
             "end": "(?=\\n|$)",
             "beginCaptures": {
                 "1": { "name": "comment.line.double-slash.bsl" },
                 "2": { "name": "variable.parameter.bsl" },
-                "3": { "name": "entity.name.type.bsl" }
+                "3": { "name": "entity.name.type.bsl" },
+                "4": { "name": "comment.line.double-slash.bsl" },
+                "5": { "name": "entity.name.type.bsl" }
             },
             "patterns": [
                 {
                     "name": "meta.documentation.parameters.type.list.bsl",
-                    "match": "(,\\s*)([А-Яа-яЁё\\w.]+)",
+                    "match": "(,\\s*)([А-Яа-яЁё\\w.]+)(?:(\\sиз\\s+)([А-Яа-яЁё\\w.]+))?",
                     "captures": {
                         "1": {
                             "name": "punctuation.separator.description.bsl"
                         },
                         "2": {
+                            "name": "entity.name.type.bsl"
+                        },
+                        "3": {
+                            "name": "punctuation.separator.description.bsl"
+                        },
+                        "4": {
                             "name": "entity.name.type.bsl"
                         }
                     }
@@ -1216,23 +1223,30 @@
             ]
         },
         "_docReturnsBlockArgs": {
-            "name": "meta.documentation.returns.bsl",
-            "begin": "^\\s*(//)(\\s*-\\s*)([А-Яа-яЁё\\w.]+)",
+            "begin": "^\\s*(//)(\\s*-\\s*)([А-Яа-яЁё\\w.]+)(?:(\\sиз\\s+)([А-Яа-яЁё\\w.]+))?",
             "end": "(?=\\n|$)",
             "beginCaptures": {
                 "1": { "name": "comment.line.double-slash.bsl" },
                 "2": { "name": "punctuation.separator.description.bsl" },
-                "3": { "name": "entity.name.type.bsl" }
+                "3": { "name": "entity.name.type.bsl" },
+                "4": { "name": "punctuation.separator.description.bsl" },
+                "5": { "name": "entity.name.type.bsl" }
             },
             "patterns": [
                 {
                     "name": "meta.documentation.returns.type.list.bsl",
-                    "match": "(,\\s*)([А-Яа-яЁё\\w.]+)",
+                    "match": "(,\\s*)([А-Яа-яЁё\\w.]+)(?:(\\sиз\\s+)([А-Яа-яЁё\\w.]+))?",
                     "captures": {
                         "1": {
                             "name": "punctuation.separator.description.bsl"
                         },
                         "2": {
+                            "name": "entity.name.type.bsl"
+                        },
+                        "3": {
+                            "name": "punctuation.separator.description.bsl"
+                        },
+                        "4": {
                             "name": "entity.name.type.bsl"
                         }
                     }
