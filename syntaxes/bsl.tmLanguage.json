@@ -1241,7 +1241,7 @@
             ]
         },
         "_docReturnsBlockArgs": {
-            "begin": "^\\s*(//\\s*)(-\\s*)([А-Яа-яЁё\\w.]+)(?:(\\sиз\\s+)([А-Яа-яЁё\\w.]+))?",
+            "begin": "^\\s*(//\\s*)(-\\s*)?([А-Яа-яЁё\\w.]+)(?:(\\sиз\\s+)([А-Яа-яЁё\\w.]+))?",
             "end": "(?=\\n|$)",
             "beginCaptures": {
                 "1": { "name": "comment.line.double-slash.bsl" },
