@@ -4,7 +4,7 @@
   "description": "%description%",
   "publisher": "IgorKilipenko",
   "icon": "images/onecalng_favicon.png",
-  "version": "0.5.12",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -96,6 +96,53 @@
               "settings": {
                 "foreground": "#4FC1FF"
               }
+            },
+            {
+              "scope": "keyword.control.documentation.bsl",
+              "settings": {
+                "foreground": "#569CD6",
+                "fontStyle": "bold"
+              }
+            },
+            {
+              "scope": "variable.parameter.bsl",
+              "settings": {
+                "foreground": "#A5B8CF"
+              }
+            },
+            {
+              "scope": "entity.name.type.bsl",
+              "settings": {
+                "foreground": "#4EC9B0"
+              }
+            },
+            {
+              "scope": ["keyword.control.region.past.bsl", "keyword.control.region.past.start.bsl", "keyword.control.region.past.end.bsl"],
+              "settings": {
+                "foreground": "#4EC9B0",
+                "fontStyle": "bold underline"
+              }
+            },
+            {
+              "scope": ["keyword.control.region.del.bsl", "keyword.control.region.del.start.bsl", "keyword.control.region.del.end.bsl"],
+              "settings": {
+                "foreground": "#F48771",
+                "fontStyle": "bold underline"
+              }
+            },
+            {
+              "scope": ["comment.line.developer.bsl"],
+              "settings": {
+                "foreground": "#D7BA7D",
+                "fontStyle": "bold underline"
+              }
+            },
+            {
+              "scope": "keyword.deprecated.bsl",
+              "settings": {
+                "foreground": "#FF8080",
+                "fontStyle": "italic"
+              }
             }
           ]
         },
@@ -108,6 +155,53 @@
               ],
               "settings": {
                 "foreground": "#120052"
+              }
+            },
+            {
+              "scope": "keyword.control.documentation.bsl",
+              "settings": {
+                "foreground": "#0451A5",
+                "fontStyle": "bold"
+              }
+            },
+            {
+              "scope": "variable.parameter.bsl",
+              "settings": {
+                "foreground": "#5E7B8C"
+              }
+            },
+            {
+              "scope": "entity.name.type.bsl",
+              "settings": {
+                "foreground": "#098658"
+              }
+            },
+            {
+              "scope": ["keyword.control.region.past.bsl", "keyword.control.region.past.start.bsl", "keyword.control.region.past.end.bsl"],
+              "settings": {
+                "foreground": "#098658",
+                "fontStyle": "bold underline"
+              }
+            },
+            {
+              "scope": ["keyword.control.region.del.bsl", "keyword.control.region.del.start.bsl", "keyword.control.region.del.end.bsl"],
+              "settings": {
+                "foreground": "#A31515",
+                "fontStyle": "bold underline"
+              }
+            },
+            {
+              "scope": ["comment.line.developer.bsl"],
+              "settings": {
+                "foreground": "#9C6D1E",
+                "fontStyle": "bold underline"
+              }
+            },
+            {
+              "scope": "keyword.deprecated.bsl",
+              "settings": {
+                "foreground": "#CC0000",
+                "fontStyle": "italic"
               }
             }
           ]
@@ -136,6 +230,14 @@
             ],
             "settings": {
               "fontStyle": "underline"
+            }
+          },
+          {
+            "scope": [
+              "meta.documentation.block.bsl"
+            ],
+            "settings": {
+              "fontStyle": "italic"
             }
           }
         ]
